@@ -1,7 +1,6 @@
 @import "bootstrap";
 
 .pagination {
-  background: white;
   cursor: default;
   height: 32px;
   a, span, em {
@@ -11,21 +10,19 @@
     margin-right: 1px;
   }
   .disabled {
-    color: #999999;
-    border: 1px solid #dddddd;
-    display: none;
+    color: #ffffff;
+    border: 1px solid #ffffff;
   }
   .current {
     font-style: normal;
-    font-weight: bold;
     background: #2e6ab1;
-    color: white;
-    border: 1px solid #2e6ab1;
+    color: #00C122;
+    border: 1px solid #00C122;
   }
   a {
     text-decoration: none;
-    color: #105cb6;
-    border: 1px solid #9aafe5;
+    color: #00C122;
+    border: 1px solid #00C122;
     &:hover, &:focus {
       color: #000033;
       border-color: #000033;

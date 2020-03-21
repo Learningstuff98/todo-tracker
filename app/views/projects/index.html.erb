@@ -2,13 +2,13 @@
 
 <% if current_user %>
   <%= link_to 'start a new project', new_project_path, class: "btn btn-primary" %>
-  <br/><br/>
-  <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
-<% else %>
-  <%= link_to 'Log in', new_user_session_path, class: "btn btn-primary" %>
 <% end %>
 
+<br/><br/>
+
 <%= will_paginate @products, previous_label: h("<"), next_label: h(">") %>
+
+<br/>
 
 <% @projects.each do |project| %>
   <h3><%= project.title %></h3>
