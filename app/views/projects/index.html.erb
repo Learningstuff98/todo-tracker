@@ -1,0 +1,15 @@
+<h1>Home page</h1>
+
+<% if current_user %>
+  <%= link_to 'start a new project', new_project_path, class: "btn btn-primary" %>
+  <br/><br/>
+  <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+<% else %>
+  <%= link_to 'Log in', new_user_session_path, class: "btn btn-primary" %>
+<% end %>
+
+<% @projects.each do |project| %>
+  <h3><%= project.title %></h3>
+  <br/>
+  <h5><%= project.description %></h5>
+<% end %>
