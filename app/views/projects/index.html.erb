@@ -8,6 +8,8 @@
   <%= link_to 'Log in', new_user_session_path, class: "btn btn-primary" %>
 <% end %>
 
+<%= will_paginate @projects %>
+
 <% @projects.each do |project| %>
   <h3><%= project.title %></h3>
   <br/>
