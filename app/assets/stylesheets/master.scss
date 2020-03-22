@@ -79,3 +79,26 @@ body {
 .make-it-green {
   color: #00C122;
 }
+
+.page-content {
+  margin-left: 20px;
+}
+
+.box {
+  padding: 10px;
+  border: 2px solid;
+  border-color: #00C122;
+  border-radius: 10px;
+}
+
+.container{
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}

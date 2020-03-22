@@ -1,17 +1,20 @@
-<h1>Home page</h1>
+<div class="page-content">
+  <h1>Home page</h1>
 
-<% if current_user %>
-  <%= link_to 'start a new project', new_project_path, class: "btn btn-primary" %>
-<% end %>
+  <% if current_user %>
+    <%= link_to 'start a new project', new_project_path, class: "btn btn-primary make-it-green" %>
+  <% end %>
 
-<br/><br/>
+  <br/><br/>
 
-<%= will_paginate @products, previous_label: h("<"), next_label: h(">") %>
+  <%= will_paginate @products, previous_label: h("<"), next_label: h(">") %>
 
-<br/>
-
-<% @projects.each do |project| %>
-  <h3><%= project.title %></h3>
   <br/>
-  <h5><%= project.description %></h5>
-<% end %>
+
+  <% @projects.each do |project| %>
+    <h3 class="make-it-green"><%= project.title %></h3>
+    <h6 class="make-it-green"><%= project.user.username %></h6>
+    <br/>
+  <% end %>
+
+</div>
