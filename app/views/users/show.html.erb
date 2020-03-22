@@ -1,0 +1,8 @@
+<div class="page-content">
+  <h3><%= @user.username %></h3>
+  <br/><br/>
+  <% @projects.each do |project| %>
+    <h3><%= link_to project.title, project_path(project), class: "make-it-green" %></h3>
+    <br/><br/>
+  <% end %>
+</div>
