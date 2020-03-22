@@ -2,6 +2,12 @@
   <h3><%= @user.username %></h3>
   <br/><br/>
 
+  <%= simple_form_for :search, url: user_path(@user), method: "GET", html: { class: 'form-inline' } do |f| %>
+    <%= f.input :title, input_html: {value: ""} %>   
+    <%= f.submit "Search For one of your projects", class: "btn btn-primary make-it-green" %>
+  <% end %>
+  <br/><br/>
+
   <%= will_paginate @projects, previous_label: h("<"), next_label: h(">") %>
   <br/>
 
