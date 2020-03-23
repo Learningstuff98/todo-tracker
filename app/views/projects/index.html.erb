@@ -5,6 +5,8 @@
     <%= link_to 'start a new project', new_project_path, class: "btn btn-primary make-it-green" %>
     <br/><br/>
     <h4><%= link_to 'view your projects', user_path(current_user), class: "make-it-green" %></h4>
+  <% else %>
+    <h3><%= link_to 'Login in to start tracking your projects', new_user_session_path, class: "make-it-green" %></h3>
   <% end %>
 
   <br/><br/>
