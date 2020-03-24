@@ -2,4 +2,12 @@
   <h3><%= @project.title %></h3>
   <br/><br/>
   <h5><%= @project.description %></h5>
+  <br/><br/>
+
+  <%= react_component("Stage", project_id: @project.id) %>
+
+  <% @project.stages.each do |stage| %>
+    <h3 class="make-it-green"><%= stage.name %></h3>
+  <% end %>
+
 </div>
