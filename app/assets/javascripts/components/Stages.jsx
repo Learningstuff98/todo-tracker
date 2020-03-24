@@ -49,25 +49,26 @@ class Stages extends React.Component {
 
   buildStages(res) {
     return res.map((stage) => {
-      return <div className="make-it-green">
-        <h3>{stage.name}</h3>
-        <br/>
-      </div>;
+      return(
+        <Stage
+          stageName={stage.name}
+        />
+      );
     });
   }
 
   render() {
     return(
       <div>
+        <br/>
         <form onSubmit={(e) => this.onSubmit(e)}>
           <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
           <input type="submit" value="Create Project Stage" className="stage-button btn btn-primary make-it-green"/>
         </form>
-        <div>
-          {this.state.stages.map((stage) => {
-            return stage;
-          })}
-        </div>
+        <br/>
+        {this.state.stages.map((stage) => {
+          return stage;
+        })}
       </div>
     );
   }
