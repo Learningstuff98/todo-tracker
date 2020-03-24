@@ -31,7 +31,7 @@ class Stages extends React.Component {
 
   getStages() {
     //axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages')
-    axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages')
+    axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages')
     .then((res) => this.setStagesInState(res.data))
     .catch((err) => console.log(err.response.data));
   }
