@@ -112,16 +112,20 @@ body {
   margin-left: 10px;
 }
 
-.stage-box{
+.stage-box {
   border: 2px solid;
   border-color: #00C122;
   border-radius: 10px;
   float: left;
   font-size: 20px;
   font-weight: bold;
-  height: 200px;
+  min-height: 200px; // I want this to be the default height
   width: 300px;
   padding: 10px;
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 }
 
 .spacer-box {
