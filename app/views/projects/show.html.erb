@@ -1,9 +1,11 @@
 <div class="page-content">
   <h3><%= @project.title %></h3>
-  <br/><br/>
-  <h5><%= @project.description %></h5>
-  <br/><br/>
+
+  <div class="box col-7 project-description">
+    <%= @project.description %>
+  </div>
+
+  <br/>
 
   <%= react_component("Stages", project_id: @project.id) %>
-
 </div>
