@@ -4,10 +4,6 @@
   <h5><%= @project.description %></h5>
   <br/><br/>
 
-  <%= react_component("Stage", project_id: @project.id) %>
-
-  <% @project.stages.each do |stage| %>
-    <h3 class="make-it-green"><%= stage.name %></h3>
-  <% end %>
+  <%= react_component("Stages", project_id: @project.id) %>
 
 </div>
