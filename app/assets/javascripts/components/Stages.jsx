@@ -66,9 +66,11 @@ class Stages extends React.Component {
           <input type="submit" value="Create Project Stage" className="stage-button btn btn-primary make-it-green"/>
         </form>
         <br/>
-        {this.state.stages.map((stage) => {
-          return stage;
-        })}
+        <span className="stages">
+          {this.state.stages.map((stage) => {
+            return stage;
+          })}
+        </span>
       </div>
     );
   }

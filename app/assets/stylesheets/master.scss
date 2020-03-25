@@ -52,6 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgba(85, 82, 83, 0.9);
+  // width: 10000px; // sort of works
 }
   
 #flex-content-container {
@@ -103,6 +104,10 @@ body {
   justify-content: center;
 }
 
+.stages {
+  display: flex;
+}
+
 .project-description {
   font-size: 20px;
   font-weight: 500;
@@ -126,10 +131,5 @@ body {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-}
-
-.spacer-box {
-  float: left;
-  height: 230px;
-  width: 30px;
+  margin: 20px;
 }
