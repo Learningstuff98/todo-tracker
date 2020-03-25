@@ -52,13 +52,12 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgba(85, 82, 83, 0.9);
-  // width: 10000px; // sort of works
 }
-  
+
 #flex-content-container {
   flex: 1;
 }
-  
+
 #footer {
   position: relative;
   width: 100%;
@@ -67,16 +66,16 @@ body {
   padding: 10px 0px;
   margin-top: 30px;
 }
-  
+
 .header-color {
   background-color: rgba(24, 21, 22, 0.9);
 }
-  
+
 .homepage_link a {
   font-size: 24px;
   color: #00C122;
 }
-  
+
 .make-it-green {
   color: #00C122;
 }
@@ -121,7 +120,6 @@ body {
   border: 2px solid;
   border-color: #00C122;
   border-radius: 10px;
-  float: left;
   font-size: 20px;
   font-weight: bold;
   min-height: 200px;
@@ -130,6 +128,5 @@ body {
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   margin: 20px;
 }
