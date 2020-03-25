@@ -57,14 +57,20 @@ class Stages extends React.Component {
     });
   }
 
+  buildStageForm() {
+    if(this.props.current_user) {
+      return <form onSubmit={(e) => this.onSubmit(e)}>
+        <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
+        <input type="submit" value="Create Project Stage" className="stage-button btn btn-primary make-it-green"/>
+      </form>
+    }
+  }
+
   render() {
     return(
       <div>
         <br/>
-        <form onSubmit={(e) => this.onSubmit(e)}>
-          <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
-          <input type="submit" value="Create Project Stage" className="stage-button btn btn-primary make-it-green"/>
-        </form>
+        {this.buildStageForm()}
         <br/>
         <span className="stages">
           {this.state.stages.map((stage) => {

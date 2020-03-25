@@ -1,4 +1,5 @@
 class Stage extends React.Component {
+
   render() {
     return <span>
       <span className="stage-box">

@@ -5,5 +5,10 @@
     <%= @project.description %>
   </div>
 
-  <%= react_component("Stages", project_id: @project.id) %>
+  <% if current_user %>
+    <%= react_component("Stages", project_id: @project.id, current_user: true) %>
+  <% else %>
+    <%= react_component("Stages", project_id: @project.id) %>
+  <% end %>
+
 </div>
