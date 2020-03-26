@@ -28,16 +28,19 @@ class Stage extends React.Component {
     this.submitTicketToAPI(formData);
   }
 
+  buildURL() {
+    //return 'http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
+    return 'https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
+  }
+
   submitTicketToAPI(formData) {
-    //axios.post('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
-    axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
+    axios.post(this.buildURL(), formData)
     .then(() => this.getTickets())
     .catch((err) => console.log(err.response.data));
   }
 
   getTickets() {
-    //axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
-    axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
+    axios.get(this.buildURL())
     .then((res) => this.setTicketsInState(res.data))
     .catch((err) => console.log(err.response.data));
   }
@@ -77,18 +80,18 @@ class Stage extends React.Component {
     });
   }
 
-  setNewTicketFormStatusButton() {
+  setShowOrHideButtonForNewTicketForm() {
     if(this.state.newTicketFormIsToBeShown) {
-      return " - ";
+      return "−";
     }
-    return " + ";
+    return "+";
   }
 
   handleFormStatusButton() {
     if(this.props.current_user) {
       return <span onClick={() => this.invertNewTicketFormStatus()}>
         <span className="make-it-green ticket-form-status-button">
-          {this.setNewTicketFormStatusButton()}
+          {this.setShowOrHideButtonForNewTicketForm()}
         </span>
       </span>
     }
