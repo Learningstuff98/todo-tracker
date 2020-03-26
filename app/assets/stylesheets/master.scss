@@ -123,10 +123,14 @@ body {
   font-size: 20px;
   font-weight: bold;
   min-height: 200px;
-  width: 300px;
+  width: 310px;
   padding: 10px;
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
   margin: 20px;
+}
+
+.stage-info {
+  margin-left: 20px;
 }

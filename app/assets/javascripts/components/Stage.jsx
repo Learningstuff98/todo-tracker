@@ -28,15 +28,15 @@ class Stage extends React.Component {
   }
 
   submitTicketToAPI(formData) {
-    //axios.post('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
-    axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
+    axios.post('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
+    //axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
     .then(() => this.getTickets())
     .catch((err) => console.log(err.response.data));
   }
 
   getTickets() {
-    //axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
-    axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
+    axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
+    //axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
     .then((res) => this.setTicketsInState(res.data))
     .catch((err) => console.log(err.response.data));
   }
@@ -66,16 +66,19 @@ class Stage extends React.Component {
 
   render() {
     return <span>
-      <span className="stage-box">
-        {this.props.stageName}
+      <div className="stage-info">
+        <h3 className="make-it-green">
+          {this.props.stageName}
+        </h3>
         {this.buildTicketForm()}
+      </div>
+      <span className="stage-box">
         <br/>
-        {this.state.tickets.map((ticket) => {
-          return <div>
-            <br/><br/><br/><br/>
-            {ticket}
-          </div>
-        })}
+        <div>
+          {this.state.tickets.map((ticket) => {
+            return <div>{ticket}</div>
+          })}
+        </div>
       </span>
     </span>
   }
