@@ -2,7 +2,8 @@ class Stage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tickets: []
+      tickets: [],
+      newTicketFormIsToBeShown: false
     };
   }
 
@@ -28,15 +29,15 @@ class Stage extends React.Component {
   }
 
   submitTicketToAPI(formData) {
-    axios.post('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
-    //axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
+    //axios.post('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
+    axios.post('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets', formData)
     .then(() => this.getTickets())
     .catch((err) => console.log(err.response.data));
   }
 
   getTickets() {
-    axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
-    //axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
+    //axios.get('http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
+    axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets')
     .then((res) => this.setTicketsInState(res.data))
     .catch((err) => console.log(err.response.data));
   }
@@ -64,13 +65,37 @@ class Stage extends React.Component {
     </form>
   }
 
+  handleTicketForm() {
+    if(this.state.newTicketFormIsToBeShown) {
+      return this.buildTicketForm();
+    }
+  }
+
+  invertNewTicketFormStatus() {
+    this.setState({
+      newTicketFormIsToBeShown: !this.state.newTicketFormIsToBeShown
+    });
+  }
+
+  setNewTicketFormStatusButtonIcon() {
+    if(this.state.newTicketFormIsToBeShown) {
+      return " - ";
+    }
+    return " + ";
+  }
+
   render() {
     return <span>
       <div className="stage-info">
         <h3 className="make-it-green">
-          {this.props.stageName}
+          {this.props.stageName}{" "}
+          <span onClick={() => this.invertNewTicketFormStatus()}>
+            <span className="make-it-green ticket-form-status-button">
+              {this.setNewTicketFormStatusButtonIcon()}
+            </span>
+          </span>
         </h3>
-        {this.buildTicketForm()}
+        {this.handleTicketForm()}
       </div>
       <span className="stage-box">
         <br/>
