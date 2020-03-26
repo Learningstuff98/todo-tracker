@@ -54,6 +54,7 @@ class Stages extends React.Component {
           stageName={stage.name}
           project_id={this.props.project_id}
           stage_id={stage.id}
+          current_user={this.props.current_user}
         />
       );
     });

@@ -77,11 +77,21 @@ class Stage extends React.Component {
     });
   }
 
-  setNewTicketFormStatusButtonIcon() {
+  setNewTicketFormStatusButton() {
     if(this.state.newTicketFormIsToBeShown) {
       return " - ";
     }
     return " + ";
+  }
+
+  handleFormStatusButton() {
+    if(this.props.current_user) {
+      return <span onClick={() => this.invertNewTicketFormStatus()}>
+        <span className="make-it-green ticket-form-status-button">
+          {this.setNewTicketFormStatusButton()}
+        </span>
+      </span>
+    }
   }
 
   render() {
@@ -89,11 +99,7 @@ class Stage extends React.Component {
       <div className="stage-info">
         <h3 className="make-it-green">
           {this.props.stageName}{" "}
-          <span onClick={() => this.invertNewTicketFormStatus()}>
-            <span className="make-it-green ticket-form-status-button">
-              {this.setNewTicketFormStatusButtonIcon()}
-            </span>
-          </span>
+          {this.handleFormStatusButton()}
         </h3>
         {this.handleTicketForm()}
       </div>
