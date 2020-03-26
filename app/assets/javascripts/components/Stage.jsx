@@ -74,24 +74,24 @@ class Stage extends React.Component {
     }
   }
 
-  invertNewTicketFormStatus() {
+  invertNewTicketFormShowStatus() {
     this.setState({
       newTicketFormIsToBeShown: !this.state.newTicketFormIsToBeShown
     });
   }
 
-  setShowOrHideButtonForNewTicketForm() {
+  setShowOrHideButtonCharacterForNewTicketForm() {
     if(this.state.newTicketFormIsToBeShown) {
       return "−";
     }
     return "+";
   }
 
-  handleFormStatusButton() {
+  handleTicketFormShowOrHideButton() {
     if(this.props.current_user) {
-      return <span onClick={() => this.invertNewTicketFormStatus()}>
+      return <span onClick={() => this.invertNewTicketFormShowStatus()}>
         <span className="make-it-green ticket-form-status-button">
-          {this.setShowOrHideButtonForNewTicketForm()}
+          {this.setShowOrHideButtonCharacterForNewTicketForm()}
         </span>
       </span>
     }
@@ -102,7 +102,7 @@ class Stage extends React.Component {
       <div className="stage-info">
         <h3 className="make-it-green">
           {this.props.stageName}{" "}
-          {this.handleFormStatusButton()}
+          {this.handleTicketFormShowOrHideButton()}
         </h3>
         {this.handleTicketForm()}
       </div>
@@ -110,7 +110,7 @@ class Stage extends React.Component {
         <br/>
         <div>
           {this.state.tickets.map((ticket) => {
-            return <div>{ticket}</div>
+            return ticket;
           })}
         </div>
       </span>
