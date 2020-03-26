@@ -52,6 +52,8 @@ class Stages extends React.Component {
       return(
         <Stage
           stageName={stage.name}
+          project_id={this.props.project_id}
+          stage_id={stage.id}
         />
       );
     });
@@ -61,7 +63,7 @@ class Stages extends React.Component {
     if(this.props.current_user) {
       return <form onSubmit={(e) => this.onSubmit(e)}>
         <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
-        <input type="submit" value="Create Project Stage" className="stage-button btn btn-primary make-it-green"/>
+        <input type="submit" value="Add stage" className="stage-button btn btn-primary make-it-green"/>
       </form>
     }
   }
