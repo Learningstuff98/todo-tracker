@@ -29,8 +29,9 @@ class Stage extends React.Component {
   }
 
   buildURL() {
-    //return 'http://localhost:3000/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
-    return 'https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
+    //const rootURL = 'http://localhost:3000';
+    const rootURL = 'https://todo-tracker-andy-strube.herokuapp.com';
+    return rootURL + '/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
   }
 
   submitTicketToAPI(formData) {
@@ -97,6 +98,21 @@ class Stage extends React.Component {
     }
   }
 
+  buildStage() {
+    return(
+      <span className="stage-box">
+        <br/>
+        <div>
+          {this.state.tickets.map((ticket) => {
+            return <div onClick={() => this.props.selectTicket(ticket)}>
+              {ticket}
+            </div>;
+          })}
+        </div>
+      </span>
+    );
+  }
+
   render() {
     return <span>
       <div className="stage-info">
@@ -106,14 +122,7 @@ class Stage extends React.Component {
         </h3>
         {this.handleTicketForm()}
       </div>
-      <span className="stage-box">
-        <br/>
-        <div>
-          {this.state.tickets.map((ticket) => {
-            return ticket;
-          })}
-        </div>
-      </span>
+      {this.buildStage()}
     </span>
   }
 }

@@ -2,8 +2,10 @@ class Stages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stages: []
+      stages: [],
+      selectedTicket: null
     }
+    this.selectTicket = this.selectTicket.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +30,9 @@ class Stages extends React.Component {
   }
 
   buildURL() {
-    //return 'http://localhost:3000/projects/' + this.props.project_id + '/stages';
-    return 'https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/stages';
+    //const rootURL = 'http://localhost:3000';
+    const rootURL = 'https://todo-tracker-andy-strube.herokuapp.com';
+    return rootURL + '/projects/' + this.props.project_id + '/stages';
   }
 
   submitStageToAPI(formData) {
@@ -50,6 +53,12 @@ class Stages extends React.Component {
     });
   }
 
+  selectTicket(ticket) {
+    this.setState({
+      selectedTicket: ticket
+    });
+  }
+
   buildStages(res) {
     return res.map((stage) => {
       return(
@@ -58,6 +67,7 @@ class Stages extends React.Component {
           project_id={this.props.project_id}
           stage_id={stage.id}
           current_user={this.props.current_user}
+          selectTicket={this.selectTicket}
         />
       );
     });
