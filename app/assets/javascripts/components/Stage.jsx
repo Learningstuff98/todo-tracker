@@ -54,11 +54,9 @@ class Stage extends React.Component {
 
   buildTickets(res) {
     return res.map((ticket) => {
-      return(
-        <div>
-          {ticket.name}
-        </div>
-      );
+      return <div onClick={() => this.props.selectTicket(ticket)}>
+        {ticket.name}
+      </div>;
     });
   }
 
@@ -98,15 +96,13 @@ class Stage extends React.Component {
     }
   }
 
-  buildStage() {
+  buildStageWithTickets() {
     return(
       <span className="stage-box">
         <br/>
         <div>
           {this.state.tickets.map((ticket) => {
-            return <div onClick={() => this.props.selectTicket(ticket)}>
-              {ticket}
-            </div>;
+            return ticket;
           })}
         </div>
       </span>
@@ -122,7 +118,7 @@ class Stage extends React.Component {
         </h3>
         {this.handleTicketForm()}
       </div>
-      {this.buildStage()}
+      {this.buildStageWithTickets()}
     </span>
   }
 }

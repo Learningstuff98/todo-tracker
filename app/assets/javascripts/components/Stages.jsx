@@ -82,17 +82,38 @@ class Stages extends React.Component {
     }
   }
 
+  renderStages() {
+    return(
+      <span className="stages">
+        {this.state.stages.map((stage) => {
+          return stage;
+        })}
+      </span>
+    );
+  }
+
+  renderSelectedTicket() {
+    if(this.state.selectedTicket) {
+      return(
+        <div>
+          <h4 className="make-it-green">
+            Currently selected ticket is:{" "} 
+            {this.state.selectedTicket.name}
+          </h4>
+        </div>
+      );
+    }
+  }
+
   render() {
     return(
       <div>
         <br/>
         {this.buildStageForm()}
         <br/>
-        <span className="stages">
-          {this.state.stages.map((stage) => {
-            return stage;
-          })}
-        </span>
+        {this.renderStages()}
+        <br/>
+        {this.renderSelectedTicket()}
       </div>
     );
   }
