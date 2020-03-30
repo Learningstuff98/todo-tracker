@@ -96,9 +96,22 @@ class Stage extends React.Component {
     }
   }
 
+  AddSelectedTicket(selectedTicket) {
+    if(selectedTicket) {
+      this.state.tickets.push(
+        <div onClick={() => this.props.selectTicket(selectedTicket)}>
+          {selectedTicket.name}
+        </div>
+      );
+      this.submitTicketToAPI(
+        {name: selectedTicket.name}
+      );
+    }
+  }
+
   buildStageWithTickets() {
     return(
-      <span className="stage-box">
+      <span className="stage-box" onClick={() => this.AddSelectedTicket(this.props.selectedTicket)}>
         <br/>
         <div>
           {this.state.tickets.map((ticket) => {
@@ -119,6 +132,7 @@ class Stage extends React.Component {
         {this.handleTicketForm()}
       </div>
       {this.buildStageWithTickets()}
+      <br/>
     </span>
   }
 }

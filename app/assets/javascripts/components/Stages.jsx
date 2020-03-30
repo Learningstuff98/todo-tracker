@@ -57,6 +57,7 @@ class Stages extends React.Component {
     this.setState({
       selectedTicket: ticket
     });
+    this.getStages();
   }
 
   buildStages(res) {
@@ -68,6 +69,7 @@ class Stages extends React.Component {
           stage_id={stage.id}
           current_user={this.props.current_user}
           selectTicket={this.selectTicket}
+          selectedTicket={this.state.selectedTicket}
         />
       );
     });
@@ -92,17 +94,12 @@ class Stages extends React.Component {
     );
   }
 
-  renderSelectedTicket() {
-    if(this.state.selectedTicket) {
-      return(
-        <div>
-          <h4 className="make-it-green">
-            Currently selected ticket is:{" "} 
-            {this.state.selectedTicket.name}
-          </h4>
-        </div>
-      );
-    }
+  renderSelectedTicket(selectedTicket) {
+    return(
+      <SelectedTicket
+        selectedTicket={selectedTicket}
+      />
+    );
   }
 
   render() {
@@ -113,7 +110,7 @@ class Stages extends React.Component {
         <br/>
         {this.renderStages()}
         <br/>
-        {this.renderSelectedTicket()}
+        {this.renderSelectedTicket(this.state.selectedTicket)}
       </div>
     );
   }
