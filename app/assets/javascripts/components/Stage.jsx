@@ -29,9 +29,9 @@ class Stage extends React.Component {
   }
 
   buildURL() {
-    //const rootURL = 'http://localhost:3000';
-    const rootURL = 'https://todo-tracker-andy-strube.herokuapp.com';
-    return rootURL + '/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
+    //const root = 'http://localhost:3000';
+    const root = 'https://todo-tracker-andy-strube.herokuapp.com';
+    return root + '/projects/' + this.props.project_id + '/stages/' + this.props.stage_id + '/tickets';
   }
 
   submitTicketToAPI(formData) {
@@ -96,22 +96,27 @@ class Stage extends React.Component {
     }
   }
 
-  AddSelectedTicket(selectedTicket) {
+  addTicketToState(selectedTicket) {
+    this.state.tickets.push(
+      <div onClick={() => this.props.selectTicket(selectedTicket)}>
+        {selectedTicket.name}
+      </div>
+    );
+  }
+
+  handleTicketTransfer(selectedTicket) {
     if(selectedTicket) {
-      this.state.tickets.push(
-        <div onClick={() => this.props.selectTicket(selectedTicket)}>
-          {selectedTicket.name}
-        </div>
-      );
+      this.addTicketToState(selectedTicket);
       this.submitTicketToAPI(
         {name: selectedTicket.name}
       );
+      this.props.unselectTicket();
     }
   }
 
   buildStageWithTickets() {
     return(
-      <span className="stage-box" onClick={() => this.AddSelectedTicket(this.props.selectedTicket)}>
+      <span className="stage-box" onClick={() => this.handleTicketTransfer(this.props.selectedTicket)}>
         <br/>
         <div>
           {this.state.tickets.map((ticket) => {
