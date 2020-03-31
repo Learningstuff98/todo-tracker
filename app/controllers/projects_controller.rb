@@ -22,6 +22,17 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def edit
+    project = Project.find(params[:id])
+    all_tickets = []
+    project.stages.each do |stage|
+      stage.tickets.each do |ticket|
+        all_tickets.push(ticket)
+      end
+    end
+    render json: all_tickets.as_json()
+  end
+
   private
 
   def project_params

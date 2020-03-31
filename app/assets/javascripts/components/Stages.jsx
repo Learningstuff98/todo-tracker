@@ -61,7 +61,31 @@ class Stages extends React.Component {
     this.getStages();
   }
 
+  removeOldTicket(ticket) {
+    //axios.delete('http://localhost:3000/tickets/' + ticket.id)
+    axios.delete('https://todo-tracker-andy-strube.herokuapp.com/tickets/' + ticket.id)
+    .catch((err) => console.log(err.response.data));
+  }
+
+  lookForOldTicket(tickets, selectedTicket) {
+    tickets.forEach((ticket) => {
+      if(ticket.name === selectedTicket.name) {
+        if(ticket.id === selectedTicket.id) {
+          this.removeOldTicket(ticket);
+        }
+      }
+    });
+  }
+
+  handleOldTicket(selectedTicket) {
+    //axios.get('http://localhost:3000/projects/' + this.props.project_id + '/edit')
+    axios.get('https://todo-tracker-andy-strube.herokuapp.com/projects/' + this.props.project_id + '/edit')
+    .then((res) => this.lookForOldTicket(res.data, selectedTicket))
+    .catch((err) => console.log(err.response.data));
+  }
+
   unselectTicket() {
+    this.handleOldTicket(this.state.selectedTicket);
     this.setState({
       selectedTicket: null
     });

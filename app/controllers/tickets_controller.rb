@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
-  before_action :authenticate_user!, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     stage = Stage.find(params[:stage_id])
@@ -12,6 +12,11 @@ class TicketsController < ApplicationController
     project = Project.find(params[:project_id])
     stage = Stage.find(params[:stage_id])
     render json: stage.tickets.as_json()
+  end
+
+  def destroy
+    ticket = Ticket.find(params[:id])
+    ticket.destroy
   end
 
   private
