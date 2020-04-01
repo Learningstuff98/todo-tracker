@@ -5,6 +5,8 @@
     <%= @project.description %>
   </div>
 
+  <br/><br/>
+
   <% if current_user %>
     <%= react_component("Stages", project_id: @project.id, current_user: true) %>
   <% else %>
