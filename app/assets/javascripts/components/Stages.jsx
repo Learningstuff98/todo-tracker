@@ -3,7 +3,8 @@ class Stages extends React.Component {
     super(props);
     this.state = {
       stages: [],
-      selectedTicket: null
+      selectedTicket: null,
+      ticketUpdates: 0
     }
     this.selectTicket = this.selectTicket.bind(this);
     this.unselectTicket = this.unselectTicket.bind(this);
@@ -87,7 +88,8 @@ class Stages extends React.Component {
   unselectTicket() {
     this.handleOldTicket(this.state.selectedTicket);
     this.setState({
-      selectedTicket: null
+      selectedTicket: null,
+      ticketUpdates: this.state.ticketUpdates + 1
     });
     this.getStages();
   }
@@ -103,6 +105,7 @@ class Stages extends React.Component {
           selectTicket={this.selectTicket}
           selectedTicket={this.state.selectedTicket}
           unselectTicket={this.unselectTicket}
+          ticketUpdates={this.state.ticketUpdates}
         />
       );
     });

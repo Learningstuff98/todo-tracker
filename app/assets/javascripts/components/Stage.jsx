@@ -3,12 +3,24 @@ class Stage extends React.Component {
     super(props);
     this.state = {
       tickets: [],
-      newTicketFormIsToBeShown: false
+      newTicketFormIsToBeShown: false,
+      ticketUpdates: 0
     };
   }
 
   componentDidMount() {
     this.getTickets();
+    this.interval = setInterval(() => {
+      if(this.state.ticketUpdates < this.props.ticketUpdates) {
+        this.setState({
+          ticketUpdates: this.state.ticketUpdates + 1
+        });
+      }
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   onSubmit(e) {
@@ -127,6 +139,12 @@ class Stage extends React.Component {
     );
   }
 
+  handleTicketListRefresh() {
+    if(this.props.ticketUpdates > this.state.ticketUpdates) {
+      this.getTickets();
+    }
+  }
+
   render() {
     return <span>
       <div className="stage-info">
@@ -137,6 +155,7 @@ class Stage extends React.Component {
         {this.handleTicketForm()}
       </div>
       {this.buildStageWithTickets()}
+      {this.handleTicketListRefresh()}
       <br/>
     </span>
   }
