@@ -2,17 +2,25 @@ class Stages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stages: []
+      stages: [],
+      tickets: []
     }
   }
 
   componentDidMount() {
+    this.getTickets();
     this.getStages();
   }
 
   setRoot() {
     return 'http://localhost:3000';
     //return 'https://todo-tracker-andy-strube.herokuapp.com';
+  }
+
+  getTickets() {
+    axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/tickets')
+    .then((res) => this.setState({ tickets: res.data }))
+    .catch((err) => console.log(err.response.data));
   }
 
   getStages() {
@@ -27,11 +35,23 @@ class Stages extends React.Component {
     });
   }
 
+  sortTickets(stage) {
+    let tickets = [];
+    this.state.tickets.forEach((ticket) => {
+      if(ticket.stage_id === stage.id) {
+        tickets.push(ticket);
+      }
+    });
+    return tickets;
+  }
+
   buildStages(res) {
     return res.map((stage) => {
       return(
         <Stage
           stageName={stage.name}
+          stageId={stage.id}
+          tickets={this.sortTickets(stage)}
         />
       );
     });
