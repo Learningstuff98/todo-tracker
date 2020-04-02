@@ -25,69 +25,63 @@ class Stages extends React.Component {
 
   getStages() {
     axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/stages')
-    .then((res) => this.setStagesInState(res.data))
+    .then((res) => this.setState({ stages: res.data }))
     .catch((err) => console.log(err.response.data));
   }
-
-  setStagesInState(res) {
-    this.setState({
-      stages: this.buildStages(res)
-    });
+    
+  renderTickets(tickets, stage) {
+    return <div>
+      {tickets.map((ticket) => {
+        if(ticket.stage_id === stage.id) {
+          return <div key={ticket.id}>
+            {ticket.name}
+          </div>
+        }
+      })}
+    </div>
   }
 
-  sortTickets(stage) {
-    let tickets = [];
-    this.state.tickets.forEach((ticket) => {
-      if(ticket.stage_id === stage.id) {
-        tickets.push(ticket);
-      }
-    });
-    return tickets;
-  }
-
-  buildStages(res) {
-    return res.map((stage) => {
-      return(
-        <Stage
-          stageName={stage.name}
-          stageId={stage.id}
-          tickets={this.sortTickets(stage)}
-        />
-      );
-    });
-  }
-
-  renderStages() {
+  renderStages(stages, tickets) {
     return <span className="stages">
-      {this.state.stages.map((stage) => {
-        return stage;
+      {stages.map((stage) => {
+        return <div key={stage.id}>
+          <h3 className="make-it-green">
+            <div className="stage-names">
+              {stage.name}{" "}{stage.id}
+            </div>
+          </h3>
+          <div className="stage-box">
+            {this.renderTickets(tickets, stage)}
+          </div>
+        </div>
       })}
     </span>
   }
 
-  clearInputElement() {
+  clearStageInputElement() {
     this.stageName.value = '';
   }
 
-  onSubmit(e) {
+  onSubmitForStage(e) {
     e.preventDefault();
     this.submitStage({
       name: this.stageName.value
     });
-    this.clearInputElement();
+    this.clearStageInputElement();
   }
 
   submitStage(formData) {
-    axios.post(this.setRoot() +  '/projects/' + this.props.project_id + '/stages', formData)
+    axios.post(this.setRoot() + '/projects/' + this.props.project_id + '/stages', formData)
     .then(() => this.getStages())
     .catch((err) => console.log(err.response.data));
   }
 
   buildStageForm() {
     if(this.props.current_user) {
-      return <form onSubmit={(e) => this.onSubmit(e)}>
+      return <form onSubmit={(e) => this.onSubmitForStage(e)}>
         <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
         <input type="submit" value="Add stage" className="stage-button btn btn-primary make-it-green"/>
+        <br/><br/>
       </form>
     }
   }
@@ -96,7 +90,10 @@ class Stages extends React.Component {
     return <div>
       {this.buildStageForm()}
       <br/><br/>
-      {this.renderStages()}
+      {this.renderStages(
+        this.state.stages, 
+        this.state.tickets
+      )}
     </div>
   }
 }
