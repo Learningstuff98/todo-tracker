@@ -4,7 +4,8 @@ class Stages extends React.Component {
     this.state = {
       stages: [],
       tickets: [],
-      firstStageId: null
+      firstStageId: null,
+      selectedTicket: null
     }
   }
 
@@ -14,8 +15,8 @@ class Stages extends React.Component {
   }
 
   setRoot() {
-    return 'http://localhost:3000';
-    //return 'https://todo-tracker-andy-strube.herokuapp.com';
+    //return 'http://localhost:3000';
+    return 'https://todo-tracker-andy-strube.herokuapp.com';
   }
 
   getTickets() {
@@ -32,12 +33,35 @@ class Stages extends React.Component {
     }))
     .catch((err) => console.log(err.response.data));
   }
-    
+
+  selectTicket(ticket) {
+    this.setState({
+      selectedTicket: ticket
+    });
+  }
+
+  moveTicket(stageId) {
+    if(stageId && this.state.selectedTicket) {
+      axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.state.selectedTicket.stage_id + '/tickets/' + this.state.selectedTicket.id, {
+        stage_id: stageId
+      })
+      .then(() => this.handleMoveTicketResults())
+      .catch((err) => console.log(err.response.data));
+    }
+  }
+
+  handleMoveTicketResults() {
+    this.setState({
+      selectedTicket: null
+    });
+    this.getTickets();
+  }
+
   renderTickets(tickets, stage) {
     return <div>
       {tickets.map((ticket) => {
         if(ticket.stage_id === stage.id) {
-          return <div key={ticket.id}>
+          return <div key={ticket.id} onClick={() => this.selectTicket(ticket)}>
             {ticket.name}
           </div>
         }
@@ -51,10 +75,10 @@ class Stages extends React.Component {
         return <div key={stage.id}>
           <h3 className="make-it-green">
             <div className="stage-name">
-              {stage.name}{" "}{stage.id}
+              {stage.name}
             </div>
           </h3>
-          <div className="stage-box">
+          <div className="stage-box" onClick={() => this.moveTicket(stage.id)}>
             {this.renderTickets(tickets, stage)}
           </div>
         </div>
