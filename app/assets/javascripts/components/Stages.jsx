@@ -3,7 +3,8 @@ class Stages extends React.Component {
     super(props);
     this.state = {
       stages: [],
-      tickets: []
+      tickets: [],
+      firstStageId: null
     }
   }
 
@@ -25,7 +26,10 @@ class Stages extends React.Component {
 
   getStages() {
     axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/stages')
-    .then((res) => this.setState({ stages: res.data }))
+    .then((res) => this.setState({ 
+      stages: res.data,
+      firstStageId: res.data[0].id
+    }))
     .catch((err) => console.log(err.response.data));
   }
     
@@ -46,7 +50,7 @@ class Stages extends React.Component {
       {stages.map((stage) => {
         return <div key={stage.id}>
           <h3 className="make-it-green">
-            <div className="stage-names">
+            <div className="stage-name">
               {stage.name}{" "}{stage.id}
             </div>
           </h3>
@@ -86,9 +90,37 @@ class Stages extends React.Component {
     }
   }
 
+  onSubmitForTicket(e) {
+    e.preventDefault();
+    this.submitTicket({
+      name: this.ticketName.value,
+      project_id: this.props.project_id,
+      stage_id: this.state.firstStageId
+    });
+    this.clearTicketInputElement();
+  }
+
+  submitTicket(formData) {
+    axios.post(this.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.state.firstStageId + '/tickets', formData)
+    .then(() => this.getTickets())
+    .catch((err) => console.log(err.response.data));
+  }
+
+  clearTicketInputElement() {
+    this.ticketName.value = '';
+  }
+
+  buildTicketForm() {
+    return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
+      <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketName = input}/>
+      <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>
+    </form>
+  }
+
   render() {
     return <div>
       {this.buildStageForm()}
+      {this.buildTicketForm()}
       <br/><br/>
       {this.renderStages(
         this.state.stages, 
