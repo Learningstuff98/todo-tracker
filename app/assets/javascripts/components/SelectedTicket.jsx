@@ -3,7 +3,7 @@ class SelectedTicket extends React.Component {
     if(this.props.current_user) {
       if(this.props.ticket) {
         return <h3 className='make-it-green'>
-          Selected Ticket:{" "}{this.props.ticket.name}
+          Selected Ticket:{" "}{this.props.ticket.description}
         </h3>
       } else {
         return <h3 className="make-it-green">

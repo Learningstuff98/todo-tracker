@@ -9,7 +9,7 @@ class TicketForm extends React.Component {
   onSubmitForTicket(e) {
     e.preventDefault();
     this.submitTicket({
-      name: this.ticketName.value,
+      description: this.ticketDescription.value,
       project_id: this.props.project_id,
       stage_id: this.props.firstStageId
     });
@@ -17,23 +17,17 @@ class TicketForm extends React.Component {
   }
 
   clearTicketInputElement() {
-    this.ticketName.value = '';
+    this.ticketDescription.value = '';
   }
 
-  buildTicketForm() {
+  render() {
     if(this.props.current_user) {
       return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
-        <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketName = input}/>
+        <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketDescription = input}/>
         <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>
       </form>
+    } else {
+      return <div></div>
     }
-  }
-  
-  render() {
-    return(
-      <div>
-        {this.buildTicketForm()}
-      </div>
-    );
   }
 }

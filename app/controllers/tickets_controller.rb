@@ -22,7 +22,7 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:name, :description, :project_id, :stage_id)
+    params.require(:ticket).permit(:description, :project_id, :stage_id)
   end
 
 end

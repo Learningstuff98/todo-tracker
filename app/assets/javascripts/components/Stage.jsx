@@ -4,9 +4,10 @@ class Stage extends React.Component {
     return <div>
       {tickets.map((ticket) => {
           if(ticket.stage_id === stage.id) {
-            return <div key={ticket.id} onClick={() => this.props.selectTicket(ticket)}>
+            return <div key={ticket.id}>
               <Ticket
                 ticket={ticket}
+                selectTicket={this.props.selectTicket}
               />
             </div>
           }

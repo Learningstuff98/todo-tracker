@@ -18,21 +18,15 @@ class StageForm extends React.Component {
     this.stageName.value = '';
   }
 
-  buildStageForm() {
+  render() {
     if(this.props.current_user) {
       return <form onSubmit={(e) => this.onSubmitForStage(e)}>
         <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
         <input type="submit" value="Add stage" className="stage-button btn btn-primary make-it-green"/>
         <br/><br/>
       </form>
+    } else {
+      return <div></div>
     }
-  }
-
-  render() {
-    return(
-      <div>
-        {this.buildStageForm()}
-      </div>
-    );
   }
 }
