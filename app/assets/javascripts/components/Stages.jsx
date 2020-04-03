@@ -9,6 +9,7 @@ class Stages extends React.Component {
     }
     this.getStages = this.getStages.bind(this);
     this.getTickets = this.getTickets.bind(this);
+    this.selectTicket = this.selectTicket.bind(this);
   }
 
   componentDidMount() {
@@ -61,30 +62,15 @@ class Stages extends React.Component {
     this.getTickets();
   }
 
-  renderTickets(tickets, stage) {
-    return <div>
-      {tickets.map((ticket) => {
-        if(ticket.stage_id === stage.id) {
-          return <div key={ticket.id} onClick={() => this.selectTicket(ticket)}>
-            {ticket.name}
-          </div>
-        }
-      })}
-    </div>
-  }
-
   renderStages(stages, tickets) {
     return <span className="stages">
       {stages.map((stage) => {
-        return <div key={stage.id}>
-          <h3 className="make-it-green">
-            <div className="stage-name">
-              {stage.name}
-            </div>
-          </h3>
-          <div className="stage-box" onClick={() => this.moveTicket(stage.id)}>
-            {this.renderTickets(tickets, stage)}
-          </div>
+        return <div key={stage.id} onClick={() => this.moveTicket(stage.id)}>
+          <Stage
+            stage={stage}
+            tickets={tickets}
+            selectTicket={this.selectTicket}
+          />
         </div>
       })}
     </span>
