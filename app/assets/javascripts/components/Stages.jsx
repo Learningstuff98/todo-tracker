@@ -7,6 +7,7 @@ class Stages extends React.Component {
       firstStageId: null,
       selectedTicket: null
     }
+    this.getStages = this.getStages.bind(this);
   }
 
   componentDidMount() {
@@ -15,8 +16,8 @@ class Stages extends React.Component {
   }
 
   setRoot() {
-    return 'http://localhost:3000';
-    //return 'https://todo-tracker-andy-strube.herokuapp.com';
+    //return 'http://localhost:3000';
+    return 'https://todo-tracker-andy-strube.herokuapp.com';
   }
 
   getTickets() {
@@ -88,34 +89,6 @@ class Stages extends React.Component {
     </span>
   }
 
-  clearStageInputElement() {
-    this.stageName.value = '';
-  }
-
-  onSubmitForStage(e) {
-    e.preventDefault();
-    this.submitStage({
-      name: this.stageName.value
-    });
-    this.clearStageInputElement();
-  }
-
-  submitStage(formData) {
-    axios.post(this.setRoot() + '/projects/' + this.props.project_id + '/stages', formData)
-    .then(() => this.getStages())
-    .catch((err) => console.log(err.response.data));
-  }
-
-  buildStageForm() {
-    if(this.props.current_user) {
-      return <form onSubmit={(e) => this.onSubmitForStage(e)}>
-        <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
-        <input type="submit" value="Add stage" className="stage-button btn btn-primary make-it-green"/>
-        <br/><br/>
-      </form>
-    }
-  }
-
   onSubmitForTicket(e) {
     e.preventDefault();
     this.submitTicket({
@@ -152,9 +125,18 @@ class Stages extends React.Component {
     />
   }
 
+  renderStageForm() {
+    return <StageForm
+      current_user={this.props.current_user}
+      setRoot={this.setRoot}
+      project_id={this.props.project_id}
+      getStages={this.getStages}
+    />
+  }
+
   render() {
     return <div>
-      {this.buildStageForm()}
+      {this.renderStageForm()}
       {this.buildTicketForm()}
       <br/>
       {this.renderSelectedTicket(this.state.selectedTicket)}
