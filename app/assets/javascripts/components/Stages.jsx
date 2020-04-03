@@ -35,9 +35,11 @@ class Stages extends React.Component {
   }
 
   selectTicket(ticket) {
-    this.setState({
-      selectedTicket: ticket
-    });
+    if(this.props.current_user) {
+      this.setState({
+        selectedTicket: ticket
+      });
+    }
   }
 
   moveTicket(stageId) {
@@ -135,20 +137,19 @@ class Stages extends React.Component {
   }
 
   buildTicketForm() {
-    return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
-      <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketName = input}/>
-      <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>
-    </form>
+    if(this.props.current_user) {
+      return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
+        <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketName = input}/>
+        <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>
+      </form>
+    }
   }
 
   renderSelectedTicket(ticket) {
-    if(ticket) {
-      return <SelectedTicket
-        ticketName={ticket.name}
-      />
-    } else {
-      return <SelectedTicket/>
-    }
+    return <SelectedTicket
+      ticket={ticket}
+      current_user={this.props.current_user}
+    />
   }
 
   render() {
