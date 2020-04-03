@@ -8,6 +8,7 @@ class Stages extends React.Component {
       selectedTicket: null
     }
     this.getStages = this.getStages.bind(this);
+    this.getTickets = this.getTickets.bind(this);
   }
 
   componentDidMount() {
@@ -89,35 +90,6 @@ class Stages extends React.Component {
     </span>
   }
 
-  onSubmitForTicket(e) {
-    e.preventDefault();
-    this.submitTicket({
-      name: this.ticketName.value,
-      project_id: this.props.project_id,
-      stage_id: this.state.firstStageId
-    });
-    this.clearTicketInputElement();
-  }
-
-  submitTicket(formData) {
-    axios.post(this.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.state.firstStageId + '/tickets', formData)
-    .then(() => this.getTickets())
-    .catch((err) => console.log(err.response.data));
-  }
-
-  clearTicketInputElement() {
-    this.ticketName.value = '';
-  }
-
-  buildTicketForm() {
-    if(this.props.current_user) {
-      return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
-        <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketName = input}/>
-        <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>
-      </form>
-    }
-  }
-
   renderSelectedTicket(ticket) {
     return <SelectedTicket
       ticket={ticket}
@@ -134,10 +106,20 @@ class Stages extends React.Component {
     />
   }
 
+  renderTicketForm(firstStageId) {
+    return <TicketForm
+      current_user={this.props.current_user}
+      setRoot={this.setRoot}
+      project_id={this.props.project_id}
+      firstStageId={firstStageId}
+      getTickets={this.getTickets}
+    />
+  }
+
   render() {
     return <div>
       {this.renderStageForm()}
-      {this.buildTicketForm()}
+      {this.renderTicketForm(this.state.firstStageId)}
       <br/>
       {this.renderSelectedTicket(this.state.selectedTicket)}
       <br/><br/>

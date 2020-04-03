@@ -35,5 +35,4 @@ class StageForm extends React.Component {
       </div>
     );
   }
-  
 }
