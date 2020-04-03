@@ -141,10 +141,22 @@ class Stages extends React.Component {
     </form>
   }
 
+  renderSelectedTicket(ticket) {
+    if(ticket) {
+      return <SelectedTicket
+        ticketName={ticket.name}
+      />
+    } else {
+      return <SelectedTicket/>
+    }
+  }
+
   render() {
     return <div>
       {this.buildStageForm()}
       {this.buildTicketForm()}
+      <br/>
+      {this.renderSelectedTicket(this.state.selectedTicket)}
       <br/><br/>
       {this.renderStages(
         this.state.stages, 
