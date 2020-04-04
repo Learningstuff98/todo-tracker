@@ -62,7 +62,7 @@ class Stages extends React.Component {
     this.getTickets();
   }
 
-  renderStages(stages, tickets) {
+  renderStages(stages, tickets, ticket) {
     return <span className="stages">
       {stages.map((stage) => {
         return <div key={stage.id} onClick={() => this.moveTicket(stage.id)}>
@@ -70,17 +70,11 @@ class Stages extends React.Component {
             stage={stage}
             tickets={tickets}
             selectTicket={this.selectTicket}
+            selectedTicket={ticket}
           />
         </div>
       })}
     </span>
-  }
-
-  renderSelectedTicket(ticket) {
-    return <SelectedTicket
-      ticket={ticket}
-      current_user={this.props.current_user}
-    />
   }
 
   renderStageForm() {
@@ -107,11 +101,11 @@ class Stages extends React.Component {
       {this.renderStageForm()}
       {this.renderTicketForm(this.state.firstStageId)}
       <br/>
-      {this.renderSelectedTicket(this.state.selectedTicket)}
       <br/><br/>
       {this.renderStages(
         this.state.stages, 
-        this.state.tickets
+        this.state.tickets,
+        this.state.selectedTicket
       )}
     </div>
   }

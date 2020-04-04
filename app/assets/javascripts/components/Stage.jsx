@@ -8,6 +8,7 @@ class Stage extends React.Component {
               <Ticket
                 ticket={ticket}
                 selectTicket={this.props.selectTicket}
+                selectedTicket={this.props.selectedTicket}
               />
             </div>
           }

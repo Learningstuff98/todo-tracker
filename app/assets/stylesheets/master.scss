@@ -131,10 +131,22 @@ body {
   margin: 20px;
 }
 
-.ticket-form-status-button:hover {
+.stage-name {
+  margin-left: 20px;
+}
+
+.ticket {
+  width: 200px;
+  min-height: 100px;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid;
+}
+
+.cursor:hover {
   cursor: pointer;
 }
 
-.stage-name {
-  margin-left: 20px;
+.ticket-username {
+  margin-left: 10px;
 }
