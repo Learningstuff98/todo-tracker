@@ -5,6 +5,13 @@ class StagesController < ApplicationController
   def create
     project = Project.find(params[:project_id])
     stage = project.stages.create(stage_params)
+    ActionCable.server.broadcast 'stages',
+      name: stage.name,
+      id: stage.id,
+      project_id: stage.project_id,
+      created_at: stage.created_at,
+      updated_at: stage.updated_at
+    head :ok
   end
 
   def index

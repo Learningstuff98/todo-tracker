@@ -15,11 +15,23 @@ class Stages extends React.Component {
   componentDidMount() {
     this.getTickets();
     this.getStages();
+    this.handleWebsocketStageUpdates(this, this.state.stages);
+  }
+
+  handleWebsocketStageUpdates(component, stateAttribute) {
+    App.stages = App.cable.subscriptions.create('StagesChannel', {
+      received(data) {
+        const newStages = component.state.stages.push(data);
+        component.setState({
+          stateAttribute: newStages
+        });
+      }
+    });
   }
 
   setRoot() {
-    //return 'http://localhost:3000';
-    return 'https://todo-tracker-andy-strube.herokuapp.com';
+    return 'http://localhost:3000';
+    //return 'https://todo-tracker-andy-strube.herokuapp.com';
   }
 
   getTickets() {
@@ -63,7 +75,8 @@ class Stages extends React.Component {
   }
 
   renderStages(stages, tickets, ticket) {
-    return <span className="stages">
+    const stagesId = 'stages' + this.props.project_id;
+    return <span className="stages" id={stagesId}>
       {stages.map((stage) => {
         return <div key={stage.id} onClick={() => this.moveTicket(stage.id)}>
           <Stage
