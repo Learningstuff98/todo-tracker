@@ -18,12 +18,16 @@ class Stages extends React.Component {
     this.handleWebsocketStageUpdates(this, this.state.stages);
   }
 
-  handleWebsocketStageUpdates(component, stateAttribute) {
+  handleWebsocketStageUpdates(component, stagesParam) {
     App.stages = App.cable.subscriptions.create('StagesChannel', {
       received(data) {
         if(data.project_id === component.props.project_id) {
           const newStages = component.state.stages.push(data);
-          component.setState({ stateAttribute: newStages });
+          component.setState({ stagesParam: newStages });
+          if(!component.state.firstStageId) {
+            const firstStageId = data.id;
+            component.setState({ firstStageId, });
+          }
         }
       }
     });
