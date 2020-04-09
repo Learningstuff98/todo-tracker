@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
     ticket = stage.tickets.create(ticket_params.merge(user: current_user))
     ticket.update_attribute(:username, current_user.username)
     ActionCable.server.broadcast 'projects',
-      update_needed: "for_tickets",
+      update_is_needed: "for_tickets",
       project_id: stage.project_id
     head :ok
   end
@@ -21,7 +21,7 @@ class TicketsController < ApplicationController
     ticket = Ticket.find(params[:id])
     ticket.update_attributes(ticket_params)
     ActionCable.server.broadcast 'projects',
-      update_needed: "for_tickets",
+      update_is_needed: "for_tickets",
       project_id: ticket.stage.project_id
     head :ok
   end

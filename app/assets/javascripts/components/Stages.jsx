@@ -22,10 +22,10 @@ class Stages extends React.Component {
     App.projects = App.cable.subscriptions.create('ProjectsChannel', {
       received(data) {
         if(data.project_id === component.props.project_id) {
-          if(data.update_needed === 'for_stages') {
+          if(data.update_is_needed === 'for_stages') {
             component.getStages();
           }
-          if(data.update_needed === 'for_tickets') {
+          if(data.update_is_needed === 'for_tickets') {
             component.getTickets();
           }
         }
