@@ -19,7 +19,7 @@ class Stages extends React.Component {
   }
 
   handleWebsocketUpdates(component) {
-    App.stages = App.cable.subscriptions.create('StagesChannel', {
+    App.projects = App.cable.subscriptions.create('ProjectsChannel', {
       received(data) {
         if(data.project_id === component.props.project_id) {
           if(data.update_needed === 'for_stages') {
