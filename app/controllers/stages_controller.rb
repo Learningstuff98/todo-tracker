@@ -6,11 +6,8 @@ class StagesController < ApplicationController
     project = Project.find(params[:project_id])
     stage = project.stages.create(stage_params)
     ActionCable.server.broadcast 'stages',
-      name: stage.name,
-      id: stage.id,
-      project_id: stage.project_id,
-      created_at: stage.created_at,
-      updated_at: stage.updated_at
+      update_needed: "for_stages",
+      project_id: stage.project_id
     head :ok
   end
 

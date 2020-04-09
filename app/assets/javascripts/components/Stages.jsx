@@ -15,18 +15,18 @@ class Stages extends React.Component {
   componentDidMount() {
     this.getTickets();
     this.getStages();
-    this.handleWebsocketStageUpdates(this, this.state.stages);
+    this.handleWebsocketUpdates(this);
   }
 
-  handleWebsocketStageUpdates(component, stagesParam) {
+  handleWebsocketUpdates(component) {
     App.stages = App.cable.subscriptions.create('StagesChannel', {
       received(data) {
         if(data.project_id === component.props.project_id) {
-          const newStages = component.state.stages.push(data);
-          component.setState({ stagesParam: newStages });
-          if(!component.state.firstStageId) {
-            const firstStageId = data.id;
-            component.setState({ firstStageId, });
+          if(data.update_needed === 'for_stages') {
+            component.getStages();
+          }
+          if(data.update_needed === 'for_tickets') {
+            component.getTickets();
           }
         }
       }
@@ -34,8 +34,8 @@ class Stages extends React.Component {
   }
 
   setRoot() {
-    //return 'http://localhost:3000';
-    return 'https://todo-tracker-andy-strube.herokuapp.com';
+    return 'http://localhost:3000';
+    //return 'https://todo-tracker-andy-strube.herokuapp.com';
   }
 
   getTickets() {
@@ -66,16 +66,9 @@ class Stages extends React.Component {
       axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.state.selectedTicket.stage_id + '/tickets/' + this.state.selectedTicket.id, {
         stage_id: stageId
       })
-      .then(() => this.handleMoveTicketResults())
+      .then(() => this.setState({ selectedTicket: null }))
       .catch((err) => console.log(err.response.data));
     }
-  }
-
-  handleMoveTicketResults() {
-    this.setState({
-      selectedTicket: null
-    });
-    this.getTickets();
   }
 
   renderStages(stages, tickets, ticket) {
