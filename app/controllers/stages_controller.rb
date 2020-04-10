@@ -4,11 +4,13 @@ class StagesController < ApplicationController
 
   def create
     project = Project.find(params[:project_id])
-    stage = project.stages.create(stage_params)
-    ActionCable.server.broadcast 'projects',
-      update_is_needed: "for_stages",
-      project_id: stage.project_id
-    head :ok
+    if project.is_project_contributor?(current_user, project)
+      stage = project.stages.create(stage_params)
+      ActionCable.server.broadcast 'projects',
+        update_is_needed: "for_stages",
+        project_id: stage.project_id
+      head :ok
+    end
   end
 
   def index

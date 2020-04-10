@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.create(project_params)
     if @project.valid?
+      contributor = @project.contributors.create(username: current_user.username)
       redirect_to project_path(@project)
     else
       render :new, status: :unprocessable_entity
@@ -20,6 +21,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @contributor = Contributor.new
   end
 
   def edit

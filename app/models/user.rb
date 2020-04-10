@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :login
+  validates :username, uniqueness: true
   has_many :projects
   has_many :tickets
   # Include default devise modules. Others available are:

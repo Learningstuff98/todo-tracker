@@ -9,21 +9,27 @@ class TicketsController < ApplicationController
 
   def create
     stage = Stage.find(params[:stage_id])
-    ticket = stage.tickets.create(ticket_params.merge(user: current_user))
-    ticket.update_attribute(:username, current_user.username)
-    ActionCable.server.broadcast 'projects',
-      update_is_needed: "for_tickets",
-      project_id: stage.project_id
-    head :ok
+    project = Project.find(params[:project_id])
+    if project.is_project_contributor?(current_user, project)
+      ticket = stage.tickets.create(ticket_params.merge(user: current_user))
+      ticket.update_attribute(:username, current_user.username)
+      ActionCable.server.broadcast 'projects',
+        update_is_needed: "for_tickets",
+        project_id: stage.project_id
+      head :ok
+    end
   end
 
   def update
-    ticket = Ticket.find(params[:id])
-    ticket.update_attributes(ticket_params)
-    ActionCable.server.broadcast 'projects',
-      update_is_needed: "for_tickets",
-      project_id: ticket.stage.project_id
-    head :ok
+    project = Project.find(params[:project_id])
+    if project.is_project_contributor?(current_user, project)
+      ticket = Ticket.find(params[:id])
+      ticket.update_attributes(ticket_params)
+      ActionCable.server.broadcast 'projects',
+        update_is_needed: "for_tickets",
+        project_id: ticket.stage.project_id
+      head :ok
+    end
   end
 
   private

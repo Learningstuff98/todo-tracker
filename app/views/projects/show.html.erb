@@ -1,9 +1,35 @@
 <div class="page-content">
   <h3><%= @project.title %></h3>
 
-  <div class="box col-7 project-description">
+  <div class="box col-3 project-description">
     <%= @project.description %>
   </div>
+
+  <br/>
+
+  <h3 class="make-it-green">Contributors</h3>
+
+  <br/>
+
+  <div class='make-it-green'>
+    <% @project.contributors.each do |contributor| %>
+      <h5 class="make-it-green">
+        <%= contributor.username %>
+        <br/>
+      </h5>
+    <% end %>
+  </div>
+
+  <% if current_user == @project.user %>
+    <br/>
+    <div class="box col-3">
+      <%= simple_form_for @contributor, url: project_contributors_path(@project) do |f|%>
+        <%= f.input :username %>
+        <br/>
+        <%= f.submit 'Create', class: 'btn btn-primary make-it-green' %>
+      <% end %>
+    </div>
+  <% end %>
 
   <br/><br/>
 

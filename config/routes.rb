@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :users, only: [:show]
   resources :projects, only: [:new, :create, :show, :edit] do
+    resources :contributors, only: [:create]
     resources :stages, only: [:create, :index] do
       resources :tickets, only: [:create, :update]
     end
