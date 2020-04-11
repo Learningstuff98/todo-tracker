@@ -20,7 +20,7 @@ class TicketForm extends React.Component {
   }
 
   render() {
-    if(this.props.current_user) {
+    if(this.props.is_contributor) {
       return <form onSubmit={(e) => this.onSubmitForTicket(e)}>
         <input type='text' placeholder='Ticket Name' ref={(input) => this.ticketDescription = input}/>
         <input type="submit" value="Add ticket" className="stage-button btn btn-primary make-it-green"/>

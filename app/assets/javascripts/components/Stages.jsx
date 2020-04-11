@@ -93,6 +93,7 @@ class Stages extends React.Component {
       setRoot={this.setRoot}
       project_id={this.props.project_id}
       getStages={this.getStages}
+      is_contributor={this.props.is_contributor}
     />
   }
 
@@ -103,6 +104,7 @@ class Stages extends React.Component {
       project_id={this.props.project_id}
       firstStageId={firstStageId}
       getTickets={this.getTickets}
+      is_contributor={this.props.is_contributor}
     />
   }
 

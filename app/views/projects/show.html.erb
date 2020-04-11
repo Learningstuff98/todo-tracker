@@ -33,8 +33,13 @@
 
   <br/><br/>
 
+  <% is_contributor = false %>
+  <% if current_user && @project.is_project_contributor?(current_user, @project) %>
+    <% is_contributor = true %>
+  <% end %>
+
   <% if current_user %>
-    <%= react_component("Stages", project_id: @project.id, current_user: true) %>
+    <%= react_component("Stages", project_id: @project.id, current_user: true, is_contributor: is_contributor) %>
   <% else %>
     <%= react_component("Stages", project_id: @project.id) %>
   <% end %>

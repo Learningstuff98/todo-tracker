@@ -18,7 +18,7 @@ class StageForm extends React.Component {
   }
 
   render() {
-    if(this.props.current_user) {
+    if(this.props.is_contributor) {
       return <form onSubmit={(e) => this.onSubmitForStage(e)}>
         <input type='text' placeholder='Stage Name' ref={(input) => this.stageName = input}/>
         <input type="submit" value="Add stage" className="stage-button btn btn-primary make-it-green"/>
