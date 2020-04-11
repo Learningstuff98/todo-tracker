@@ -5,6 +5,17 @@
     <%= @project.description %>
   </div>
 
+  <% if current_user == @project.user %>
+    <br/>
+    <h4 class="make-it-green">Add a users username to add them as a contributor for this project</h4>
+    <div class="col-3 new-contributor-form">
+      <%= simple_form_for @contributor, url: project_contributors_path(@project) do |f|%>
+        <%= f.input :username %>
+        <%= f.submit 'Add this user as a contributor', class: 'btn btn-primary make-it-green' %>
+      <% end %>
+    </div>
+  <% end %>
+
   <br/>
 
   <h3 class="make-it-green">Contributors</h3>
@@ -19,17 +30,6 @@
       </h5>
     <% end %>
   </div>
-
-  <% if current_user == @project.user %>
-    <br/>
-    <div class="box col-3">
-      <%= simple_form_for @contributor, url: project_contributors_path(@project) do |f|%>
-        <%= f.input :username %>
-        <br/>
-        <%= f.submit 'Create', class: 'btn btn-primary make-it-green' %>
-      <% end %>
-    </div>
-  <% end %>
 
   <br/><br/>
 
