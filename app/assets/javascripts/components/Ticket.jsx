@@ -1,27 +1,26 @@
 class Ticket extends React.Component {
-
-  buildUnselectedTicket() {
-    return <div onClick={() => this.props.selectTicket(this.props.ticket)}>
-      <div className="ticket-username cursor">
-        {this.props.ticket.username}
-      </div>
-      <div className="ticket cursor">
-        <div>
-          {this.props.ticket.description}
-        </div>
-      </div>
-    </div>
+  
+  setColor(selectedTicket) {
+    if(selectedTicket) {
+      return 'make-it-green';
+    }
+    return '';
   }
 
-  buildSelectedTicket() {
-    return <div>
-      <div className="ticket-username cursor make-it-green">
-        This ticket is selected
+  setHeader(selectedTicket) {
+    if(selectedTicket) {
+      return "This ticket is selected";
+    }
+    return this.props.ticket.username;
+  }
+
+  buildTicket(selectedTicket) {
+    return <div className={this.setColor(selectedTicket)}>
+      <div className="ticket-username cursor">
+        {this.setHeader(selectedTicket)}
       </div>
-      <div className="ticket cursor make-it-green">
-        <div>
-          {this.props.ticket.description}
-        </div>
+      <div className="ticket cursor">
+        {this.props.ticket.description}
       </div>
     </div>
   }
@@ -30,16 +29,16 @@ class Ticket extends React.Component {
     if(this.props.selectedTicket) {
       if(this.props.ticket.description === this.props.selectedTicket.description) {
         return <div>
-          {this.buildSelectedTicket()}
+          {this.buildTicket(this.props.selectedTicket)}
         </div>
       } else {
         return <div>
-          {this.buildUnselectedTicket()}
+          {this.buildTicket()}
         </div>
       }
     } else {
-      return <div>
-        {this.buildUnselectedTicket()}
+      return <div onClick={() => this.props.selectTicket(this.props.ticket)}>
+        {this.buildTicket()}
       </div>
     }
   }
