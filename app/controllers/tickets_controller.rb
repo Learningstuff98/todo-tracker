@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :update]
-  before_action :authenticate_user!, only: [:create, :update]
+  skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
     project = Project.find(params[:project_id])
@@ -29,6 +29,14 @@ class TicketsController < ApplicationController
         update_is_needed: "for_tickets",
         project_id: ticket.stage.project_id
       head :ok
+    end
+  end
+
+  def destroy
+    project = Project.find(params[:project_id])
+    if project.is_project_contributor?(current_user, project)
+      ticket = Ticket.find(params[:id])
+      ticket.destroy
     end
   end
 

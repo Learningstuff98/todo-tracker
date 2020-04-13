@@ -1,4 +1,10 @@
 class Ticket extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      yesNoMessageIsToBeShown: false
+    };
+  }
   
   setColor(selectedTicket) {
     if(selectedTicket) {
@@ -14,15 +20,46 @@ class Ticket extends React.Component {
     return this.props.ticket.username;
   }
 
+  renderDeleteButton() {
+    return <div>
+      Delete
+    </div>
+  }
+
+  invertDeleteYesNoMessageStatus() {
+    this.setState({
+      yesNoMessageIsToBeShown: !this.state.yesNoMessageIsToBeShown
+    });
+  }
+
   buildTicket(selectedTicket) {
     return <div className={this.setColor(selectedTicket)}>
-      <div className="ticket-username cursor">
+      <div className="ticket-info cursor">
         {this.setHeader(selectedTicket)}
       </div>
-      <div className="ticket cursor">
+      <div onClick={() => this.invertDeleteYesNoMessageStatus()} className="ticket-info cursor">
+        {this.renderDeleteButton()}
+      </div>
+      {this.handleTicketBody()}
+    </div>
+  }
+
+  deleteTicket() {
+    axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.props.ticket.id)
+    .catch((err) => console.log(err.response.data));
+  }
+
+  handleTicketBody() {
+    if(this.state.yesNoMessageIsToBeShown) {
+      return <div className="ticket cursor">
+        <span onClick={() => this.deleteTicket()}>YES</span>{" "}
+        <span onClick={() => this.invertDeleteYesNoMessageStatus()}>NO</span>
+      </div>
+    } else {
+      return <div className="ticket cursor">
         {this.props.ticket.description}
       </div>
-    </div>
+    }
   }
 
   render() {

@@ -81,6 +81,8 @@ class Stages extends React.Component {
             tickets={tickets}
             selectTicket={this.selectTicket}
             selectedTicket={ticket}
+            setRoot={this.setRoot}
+            project_id={this.props.project_id}
           />
         </div>
       })}
