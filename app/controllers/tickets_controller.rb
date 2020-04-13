@@ -24,7 +24,7 @@ class TicketsController < ApplicationController
     project = Project.find(params[:project_id])
     if project.is_project_contributor?(current_user, project)
       ticket = Ticket.find(params[:id])
-      ticket.update_attributes(ticket_params)
+      ticket.update_attributes(ticket_params) if ticket
       ActionCable.server.broadcast 'projects',
         update_is_needed: "for_tickets",
         project_id: ticket.stage.project_id
