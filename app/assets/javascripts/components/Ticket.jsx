@@ -1,10 +1,4 @@
 class Ticket extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      yesNoMessageIsToBeShown: false
-    };
-  }
   
   setColor(selectedTicket) {
     if(selectedTicket) {
@@ -20,16 +14,21 @@ class Ticket extends React.Component {
     return this.props.ticket.username;
   }
 
+  deleteTicket() {
+    axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.props.ticket.id)
+    .catch((err) => console.log(err.response.data));
+  }
+
   renderDeleteButton() {
-    return <div>
+    return <div onClick={() => this.deleteTicket()} className="make-it-green">
       Delete
     </div>
   }
 
-  invertDeleteYesNoMessageStatus() {
-    this.setState({
-      yesNoMessageIsToBeShown: !this.state.yesNoMessageIsToBeShown
-    });
+  renderTicketBody(ticketDescription) {
+    return <div className="ticket cursor">
+      {ticketDescription}
+    </div>
   }
 
   buildTicket(selectedTicket) {
@@ -37,29 +36,13 @@ class Ticket extends React.Component {
       <div className="ticket-info cursor">
         {this.setHeader(selectedTicket)}
       </div>
-      <div onClick={() => this.invertDeleteYesNoMessageStatus()} className="ticket-info cursor">
+      <div className="ticket-info cursor">
         {this.renderDeleteButton()}
       </div>
-      {this.handleTicketBody()}
+      <div>
+        {this.renderTicketBody(this.props.ticket.description)}
+      </div>
     </div>
-  }
-
-  deleteTicket() {
-    axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.props.ticket.id)
-    .catch((err) => console.log(err.response.data));
-  }
-
-  handleTicketBody() {
-    if(this.state.yesNoMessageIsToBeShown) {
-      return <div className="ticket cursor">
-        <span className="btn btn-primary delete-yes-no-buttons" onClick={() => this.deleteTicket()}>YES{" "}?</span>{" "}
-        <span className="btn btn-primary delete-yes-no-buttons" onClick={() => this.invertDeleteYesNoMessageStatus()}>NO</span>
-      </div>
-    } else {
-      return <div className="ticket cursor">
-        {this.props.ticket.description}
-      </div>
-    }
   }
 
   render() {
