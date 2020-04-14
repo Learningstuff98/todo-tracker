@@ -30,8 +30,6 @@ class TicketsController < ApplicationController
           update_is_needed: "for_tickets",
           project_id: ticket.stage.project_id
         head :ok
-      else
-        render plain: "The ticket was deleted and as such, can't be moved"
       end
     end
   end
@@ -41,6 +39,10 @@ class TicketsController < ApplicationController
     if project.is_project_contributor?(current_user, project)
       ticket = Ticket.find(params[:id])
       ticket.destroy
+      ActionCable.server.broadcast 'projects',
+        update_is_needed: "for_tickets",
+        project_id: project.id
+      head :ok
     end
   end
 
