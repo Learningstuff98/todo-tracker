@@ -26,13 +26,13 @@ class TicketsController < ApplicationController
       if Ticket.find_by_id(params[:id])
         ticket = Ticket.find(params[:id])
         ticket.update_attributes(ticket_params)
+        ActionCable.server.broadcast 'projects',
+          update_is_needed: "for_tickets",
+          project_id: ticket.stage.project_id
+        head :ok
       else
-        render plain: 'The ticket was deleted'
+        render plain: "The ticket was deleted and as such, can't be moved"
       end
-      ActionCable.server.broadcast 'projects',
-        update_is_needed: "for_tickets",
-        project_id: ticket.stage.project_id
-      head :ok
     end
   end
 
