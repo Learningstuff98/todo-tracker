@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   resources :projects, only: [:new, :create, :show, :edit] do
     resources :contributors, only: [:create]
     resources :stages, only: [:create, :index] do
-      resources :tickets, only: [:create, :update]
+      resources :tickets, only: [:create]
     end
   end
   resources :projects do
-    resources :tickets, only: [:index, :destroy]
+    resources :tickets, only: [:index, :destroy, :update]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -63,7 +63,7 @@ class Stages extends React.Component {
 
   moveTicket(stageId) {
     if(stageId && this.state.selectedTicket) {
-      axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.state.selectedTicket.stage_id + '/tickets/' + this.state.selectedTicket.id, {
+      axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.state.selectedTicket.id, {
         stage_id: stageId
       })
       .then(() => this.setState({ selectedTicket: null }))
