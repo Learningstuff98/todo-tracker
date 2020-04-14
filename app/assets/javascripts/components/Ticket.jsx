@@ -52,8 +52,8 @@ class Ticket extends React.Component {
   handleTicketBody() {
     if(this.state.yesNoMessageIsToBeShown) {
       return <div className="ticket cursor">
-        <span onClick={() => this.deleteTicket()}>YES</span>{" "}
-        <span onClick={() => this.invertDeleteYesNoMessageStatus()}>NO</span>
+        <span className="btn btn-primary delete-yes-no-buttons" onClick={() => this.deleteTicket()}>YES{" "}?</span>{" "}
+        <span className="btn btn-primary delete-yes-no-buttons" onClick={() => this.invertDeleteYesNoMessageStatus()}>NO</span>
       </div>
     } else {
       return <div className="ticket cursor">
