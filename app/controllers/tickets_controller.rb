@@ -22,11 +22,13 @@ class TicketsController < ApplicationController
 
   def update
     project = Project.find(params[:project_id])
-    if Ticket.find(params[:id])
-      ticket = Ticket.find(params[:id])
-    end
     if project.is_project_contributor?(current_user, project)
-      ticket.update_attributes(ticket_params) if ticket
+      if Ticket.find_by_id(params[:id])
+        ticket = Ticket.find(params[:id])
+        ticket.update_attributes(ticket_params)
+      else
+        render plain: 'The ticket was deleted'
+      end
       ActionCable.server.broadcast 'projects',
         update_is_needed: "for_tickets",
         project_id: ticket.stage.project_id
