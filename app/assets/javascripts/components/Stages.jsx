@@ -10,6 +10,7 @@ class Stages extends React.Component {
     this.getStages = this.getStages.bind(this);
     this.getTickets = this.getTickets.bind(this);
     this.selectTicket = this.selectTicket.bind(this);
+    this.unselectTicket = this.unselectTicket.bind(this);
   }
 
   componentDidMount() {
@@ -61,12 +62,18 @@ class Stages extends React.Component {
     }
   }
 
+  unselectTicket() {
+    this.setState({
+      selectedTicket: null
+    });
+  }
+
   moveTicket(stageId) {
     if(stageId && this.state.selectedTicket) {
       axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.state.selectedTicket.id, {
         stage_id: stageId
       })
-      .then(() => this.setState({ selectedTicket: null }))
+      .then(() => this.unselectTicket())
       .catch((err) => console.log(err.response.data));
     }
   }
@@ -83,6 +90,7 @@ class Stages extends React.Component {
             selectedTicket={ticket}
             setRoot={this.setRoot}
             project_id={this.props.project_id}
+            unselectTicket={this.unselectTicket}
           />
         </div>
       })}

@@ -16,6 +16,7 @@ class Ticket extends React.Component {
 
   deleteTicket() {
     axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.props.ticket.id)
+    .then(() => this.props.unselectTicket())
     .catch((err) => console.log(err.response.data));
   }
 
@@ -47,7 +48,7 @@ class Ticket extends React.Component {
 
   render() {
     if(this.props.selectedTicket) {
-      if(this.props.ticket.description === this.props.selectedTicket.description) {
+      if(this.props.ticket.id === this.props.selectedTicket.id) {
         return <div>
           {this.buildTicket(this.props.selectedTicket)}
         </div>
