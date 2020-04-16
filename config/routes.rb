@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'projects#index'
   resources :users, only: [:show]
-  resources :projects, only: [:new, :create, :show, :edit, :destroy] do
+  resources :projects, only: [:new, :create, :show, :destroy] do
     resources :contributors, only: [:create, :destroy]
     resources :stages, only: [:create, :index, :destroy] do
       resources :tickets, only: [:create]
@@ -12,5 +12,4 @@ Rails.application.routes.draw do
   resources :projects do
     resources :tickets, only: [:index, :destroy, :update]
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

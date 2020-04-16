@@ -22,8 +22,8 @@ class StagesController < ApplicationController
     project = Project.find(params[:project_id])
     if project.is_project_contributor?(current_user, project)
       stage = Stage.find(params[:id])
-      stage.destroy
       stage.tickets.destroy_all
+      stage.destroy
       ActionCable.server.broadcast 'projects',
         update_is_needed: "for_stages",
         project_id: stage.project_id

@@ -1,5 +1,4 @@
 class ContributorsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:destroy]
   before_action :authenticate_user!
   
   def create
