@@ -19,11 +19,31 @@ class Stage extends React.Component {
     </div>
   }
 
+  deleteStage() {
+    axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.props.stage.id)
+    .catch((err) => console.log(err.response.data));
+  }
+
+  renderDeleteButton() {
+    return <h5 className="make-it-green stage-delete cursor" onClick={() => this.deleteStage()}>
+      Delete
+    </h5>
+  }
+
+  renderStageName() {
+    return <div className="stage-name">
+      {this.props.stage.name}
+    </div>
+  }
+
   render() {
     return <div>
       <h3 className="make-it-green">
-        <div className="stage-name">
-          {this.props.stage.name}
+        <div>
+          {this.renderStageName()}
+        </div>
+        <div>
+          {this.renderDeleteButton()}
         </div>
       </h3>
       <div className="stage-box">

@@ -47,25 +47,28 @@ class Stages extends React.Component {
 
   getStages() {
     axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/stages')
-    .then((res) => this.setState({ 
-      stages: res.data,
-      firstStageId: res.data[0].id
-    }))
+    .then((res) => this.handleIncomingStages(res.data))
     .catch((err) => console.log(err.response.data));
   }
 
-  selectTicket(ticket) {
-    if(this.props.current_user) {
+  handleIncomingStages(stages) {
+    if(stages.length > 0) {
+      this.setState({ stages, firstStageId: stages[0].id })
+    } else {
       this.setState({
-        selectedTicket: ticket
+        stages: []
       });
     }
   }
 
+  selectTicket(ticket) {
+    if(this.props.current_user) {
+      this.setState({ selectedTicket: ticket });
+    }
+  }
+
   unselectTicket() {
-    this.setState({
-      selectedTicket: null
-    });
+    this.setState({ selectedTicket: null });
   }
 
   moveTicket(stageId) {
