@@ -62,7 +62,7 @@ class Stages extends React.Component {
   }
 
   selectTicket(ticket) {
-    if(this.props.current_user) {
+    if(this.props.is_contributor) {
       this.setState({ selectedTicket: ticket });
     }
   }
