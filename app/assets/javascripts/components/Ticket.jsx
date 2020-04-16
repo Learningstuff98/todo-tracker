@@ -21,9 +21,11 @@ class Ticket extends React.Component {
   }
 
   renderDeleteButton() {
-    return <div onClick={() => this.deleteTicket()} className="make-it-green">
-      Delete
-    </div>
+    if(this.props.is_contributor) {
+      return <div onClick={() => this.deleteTicket()} className="make-it-green">
+        Delete
+      </div>
+    }
   }
 
   renderTicketBody(ticketDescription) {

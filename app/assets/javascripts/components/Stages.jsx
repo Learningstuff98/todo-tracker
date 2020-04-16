@@ -94,6 +94,7 @@ class Stages extends React.Component {
             setRoot={this.setRoot}
             project_id={this.props.project_id}
             unselectTicket={this.unselectTicket}
+            is_contributor={this.props.is_contributor}
           />
         </div>
       })}

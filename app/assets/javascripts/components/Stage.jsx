@@ -12,6 +12,7 @@ class Stage extends React.Component {
                 setRoot={this.props.setRoot}
                 project_id={this.props.project_id}
                 unselectTicket={this.props.unselectTicket}
+                is_contributor={this.props.is_contributor}
               />
             </div>
           }
@@ -25,10 +26,12 @@ class Stage extends React.Component {
   }
 
   renderDeleteButton() {
-    return <h5 className="make-it-green stage-delete cursor" onClick={() => this.deleteStage()}>
-      Delete
-    </h5>
-  }
+    if(this.props.is_contributor) {
+      return <h5 className="make-it-green stage-delete cursor" onClick={() => this.deleteStage()}>
+        Delete
+      </h5>
+    }
+  } 
 
   renderStageName() {
     return <div className="stage-name">
