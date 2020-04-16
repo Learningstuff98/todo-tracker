@@ -26,7 +26,18 @@
     <% @project.contributors.each do |contributor| %>
       <% if contributor.username == @project.user.username %>
         <h5 class="make-it-green">
-          <%= "#{contributor.username} as scrum master" %>
+          <%= "As project Owner:" %>
+          <%= "#{@project.user.username}" %>
+          <br/>
+        </h5>
+      <% elsif current_user == @project.user %>
+        <h5 class="make-it-green">
+          <%= contributor.username %>
+          <%= link_to "Remove this contributor", 
+            project_contributor_path(@project, contributor), 
+            method: :delete, data: { confirm: "Are you sure you want to remove this contributor?" }, 
+            class: "make-it-green" 
+          %>
           <br/>
         </h5>
       <% else %>
