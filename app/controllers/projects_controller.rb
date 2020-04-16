@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :verify_authenticity_token, only: [:destroy]
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
 
   def index
     @projects = Project.order("title").page(params[:page]).per_page(2)
@@ -33,6 +34,15 @@ class ProjectsController < ApplicationController
       end
     end
     render json: all_tickets.as_json()
+  end
+
+  def destroy
+    project = Project.find(params[:id])
+    if current_user == project.user
+      project.destroy_all_model_instances(project)
+      project.destroy
+      redirect_to root_path
+    end
   end
 
   private

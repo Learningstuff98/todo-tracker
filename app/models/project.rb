@@ -14,4 +14,10 @@ class Project < ApplicationRecord
     contributors.collect { |contributor| contributor[:username] }
   end
 
+  def destroy_all_model_instances(project)
+    project.contributors.destroy_all
+    project.stages.destroy_all
+    project.tickets.destroy_all
+  end
+
 end

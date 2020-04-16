@@ -7,9 +7,16 @@
 
   <% if current_user == @project.user %>
     <br/>
+    <%= link_to "Delete this project",
+      project_path(@project),
+      method: :delete,
+      data: { confirm: "Are you sure?" },
+      class: "make-it-green btn btn-primary"
+    %>
+    <br/><br/>
     <h4 class="make-it-green">Add a users username to add them as a contributor for this project</h4>
     <div class="col-3 new-contributor-form">
-      <%= simple_form_for @contributor, url: project_contributors_path(@project) do |f|%>
+      <%= simple_form_for @contributor, url: project_contributors_path(@project) do |f| %>
         <%= f.input :username %>
         <%= f.submit 'Add this user as a contributor', class: 'btn btn-primary make-it-green' %>
       <% end %>
@@ -27,16 +34,17 @@
       <% if contributor.username == @project.user.username %>
         <h5 class="make-it-green">
           <%= "As project Owner:" %>
-          <%= "#{@project.user.username}" %>
+          <%= "#{contributor.username}" %>
           <br/>
         </h5>
       <% elsif current_user == @project.user %>
         <h5 class="make-it-green">
           <%= contributor.username %>
-          <%= link_to "Remove this contributor", 
-            project_contributor_path(@project, contributor), 
-            method: :delete, data: { confirm: "Are you sure you want to remove this contributor?" }, 
-            class: "make-it-green" 
+          <%= link_to "Remove this contributor",
+            project_contributor_path(@project, contributor),
+            method: :delete,
+            data: { confirm: "Are you sure you want to remove this contributor?" },
+            class: "make-it-green"
           %>
           <br/>
         </h5>
