@@ -15,4 +15,9 @@ FactoryBot.define do
     description {'project description'}
     association :user
   end
+
+  factory :contributor do
+    username { "contributor username" }
+    association :project
+  end
 end
