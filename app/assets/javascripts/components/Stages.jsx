@@ -19,15 +19,15 @@ class Stages extends React.Component {
     this.handleWebsocketUpdates(this);
   }
 
-  handleWebsocketUpdates(component) {
+  handleWebsocketUpdates(stagesComponent) {
     App.projects = App.cable.subscriptions.create('ProjectsChannel', {
       received(data) {
-        if(data.project_id === component.props.project_id) {
+        if(data.project_id === stagesComponent.props.project_id) {
           if(data.update_is_needed === 'for_stages') {
-            component.getStages();
+            stagesComponent.getStages();
           }
           if(data.update_is_needed === 'for_tickets') {
-            component.getTickets();
+            stagesComponent.getTickets();
           }
         }
       }
