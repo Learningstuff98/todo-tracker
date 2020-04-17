@@ -73,5 +73,16 @@ RSpec.describe ProjectsController, type: :controller do
       project = Project.find_by_id(project.id)
       expect(project).to eq nil
     end
+
+    it "should only let the projects owner delete it" do
+      project = FactoryBot.create(:project)
+      user = FactoryBot.create(:user)
+      sign_in user
+      delete :destroy, params: { id: project.id }
+      project = Project.find_by_id(project.id)
+      project.reload
+      expect(project.title).to eq "project title"
+      expect(project.description).to eq "project description"
+    end
   end
 end
