@@ -20,4 +20,9 @@ FactoryBot.define do
     username { "contributor username" }
     association :project
   end
+
+  factory :stage do
+    name { "stage name" }
+    association :project
+  end
 end
