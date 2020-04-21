@@ -28,7 +28,7 @@ class TicketsController < ApplicationController
         ticket.update_attributes(ticket_params)
         ActionCable.server.broadcast 'projects',
           update_is_needed: "for_tickets",
-          project_id: ticket.stage.project_id
+          project_id: ticket.project_id
         head :ok
       end
     end

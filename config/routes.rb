@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     resources :stages, only: [:create, :index, :destroy] do
       resources :tickets, only: [:create]
     end
-  end
-  resources :projects do
     resources :tickets, only: [:index, :destroy, :update]
   end
 end

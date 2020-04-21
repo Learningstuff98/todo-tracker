@@ -25,4 +25,11 @@ FactoryBot.define do
     name { "stage name" }
     association :project
   end
+
+  factory :ticket do
+    description { "ticket description" }
+    association :stage
+    association :project
+    association :user
+  end
 end
