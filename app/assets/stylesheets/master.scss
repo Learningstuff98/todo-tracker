@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "font-awesome";
 
 .pagination {
   cursor: default;
@@ -163,4 +164,16 @@ body {
 .delete-yes-no-buttons {
   margin-left: 13px;
   color: #00C122;
+}
+
+.links {
+  width: 500px;
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.link {
+  margin: 15px;
 }
