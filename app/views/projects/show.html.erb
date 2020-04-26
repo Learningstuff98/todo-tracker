@@ -65,9 +65,9 @@
   <% end %>
 
   <% if current_user %>
-    <%= react_component("Stages", project_id: @project.id, current_user: true, is_contributor: is_contributor) %>
+    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor }) %>
   <% else %>
-    <%= react_component("Stages", project_id: @project.id) %>
+    <%= react_component("Stages", { project_id: @project.id }) %>
   <% end %>
 
 </div>
