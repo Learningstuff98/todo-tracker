@@ -64,10 +64,16 @@
     <% is_contributor = true %>
   <% end %>
 
+  <% web_protocal = '' %>
+  <%= "#{polymorphic_url(@project)}".split(//).each do |char| %>
+    <% break if char == ":" %>
+    <% web_protocal = web_protocal + char %>
+  <% end %>
+
   <% if current_user %>
-    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor }) %>
+    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor, web_protocal: web_protocal }) %>
   <% else %>
-    <%= react_component("Stages", { project_id: @project.id }) %>
+    <%= react_component("Stages", { project_id: @project.id, web_protocal: web_protocal }) %>
   <% end %>
 
 </div>

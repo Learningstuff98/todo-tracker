@@ -11,6 +11,7 @@ class Stages extends React.Component {
     this.getTickets = this.getTickets.bind(this);
     this.selectTicket = this.selectTicket.bind(this);
     this.unselectTicket = this.unselectTicket.bind(this);
+    this.setRoot = this.setRoot.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +36,8 @@ class Stages extends React.Component {
   }
 
   setRoot() {
-    //return 'http://localhost:3000';
-    return 'https://todo-tracker-andy-strube.herokuapp.com';
+    //return this.props.web_protocal + '://localhost:3000';
+    return this.props.web_protocal + '://todo-tracker-andy-strube.herokuapp.com';
   }
 
   getTickets() {
