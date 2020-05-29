@@ -11,10 +11,10 @@ class Stages extends React.Component {
     this.getTickets = this.getTickets.bind(this);
     this.selectTicket = this.selectTicket.bind(this);
     this.unselectTicket = this.unselectTicket.bind(this);
-    this.setRoot = this.setRoot.bind(this);
   }
 
   componentDidMount() {
+    console.log(this.props.root_url);
     this.getTickets();
     this.getStages();
     this.handleWebsocketUpdates(this);
@@ -35,19 +35,14 @@ class Stages extends React.Component {
     });
   }
 
-  setRoot() {
-    //return this.props.web_protocal + '://localhost:3000';
-    return this.props.web_protocal + '://todo-tracker-andy-strube.herokuapp.com';
-  }
-
   getTickets() {
-    axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/tickets')
+    axios.get(this.props.root_url + '/projects/' + this.props.project_id + '/tickets')
     .then((res) => this.setState({ tickets: res.data }))
     .catch((err) => console.log(err.response.data));
   }
 
   getStages() {
-    axios.get(this.setRoot() + '/projects/' + this.props.project_id + '/stages')
+    axios.get(this.props.root_url + '/projects/' + this.props.project_id + '/stages')
     .then((res) => this.handleIncomingStages(res.data))
     .catch((err) => console.log(err.response.data));
   }
@@ -74,7 +69,7 @@ class Stages extends React.Component {
 
   moveTicket(stageId) {
     if(stageId && this.state.selectedTicket) {
-      axios.patch(this.setRoot() + '/projects/' + this.props.project_id + '/tickets/' + this.state.selectedTicket.id, {
+      axios.patch(this.props.root_url + '/projects/' + this.props.project_id + '/tickets/' + this.state.selectedTicket.id, {
         stage_id: stageId
       })
       .then(() => this.unselectTicket())
@@ -92,7 +87,7 @@ class Stages extends React.Component {
             tickets={tickets}
             selectTicket={this.selectTicket}
             selectedTicket={ticket}
-            setRoot={this.setRoot}
+            root_url={this.props.root_url}
             project_id={this.props.project_id}
             unselectTicket={this.unselectTicket}
             is_contributor={this.props.is_contributor}
@@ -105,7 +100,7 @@ class Stages extends React.Component {
   renderStageForm() {
     return <StageForm
       current_user={this.props.current_user}
-      setRoot={this.setRoot}
+      root_url={this.props.root_url}
       project_id={this.props.project_id}
       getStages={this.getStages}
       is_contributor={this.props.is_contributor}
@@ -115,7 +110,7 @@ class Stages extends React.Component {
   renderTicketForm(firstStageId) {
     return <TicketForm
       current_user={this.props.current_user}
-      setRoot={this.setRoot}
+      root_url={this.props.root_url}
       project_id={this.props.project_id}
       firstStageId={firstStageId}
       getTickets={this.getTickets}

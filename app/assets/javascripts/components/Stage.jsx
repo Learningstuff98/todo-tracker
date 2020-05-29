@@ -9,7 +9,7 @@ class Stage extends React.Component {
                 ticket={ticket}
                 selectTicket={this.props.selectTicket}
                 selectedTicket={this.props.selectedTicket}
-                setRoot={this.props.setRoot}
+                root_url={this.props.root_url}
                 project_id={this.props.project_id}
                 unselectTicket={this.props.unselectTicket}
                 is_contributor={this.props.is_contributor}
@@ -21,7 +21,7 @@ class Stage extends React.Component {
   }
 
   deleteStage() {
-    axios.delete(this.props.setRoot() + '/projects/' + this.props.project_id + '/stages/' + this.props.stage.id)
+    axios.delete(this.props.root_url + '/projects/' + this.props.project_id + '/stages/' + this.props.stage.id)
     .catch((err) => console.log(err.response.data));
   }
 

@@ -64,16 +64,18 @@
     <% is_contributor = true %>
   <% end %>
 
-  <% web_protocal = '' %>
+  <% root_url = '' %>
+  <% slashes = 0 %>
   <%= "#{polymorphic_url(@project)}".split(//).each do |char| %>
-    <% break if char == ":" %>
-    <% web_protocal = web_protocal + char %>
+    <% slashes = slashes + 1 if char == "/" %>
+    <% break if slashes == 3 %>
+    <% root_url = root_url + char %>
   <% end %>
 
   <% if current_user %>
-    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor, web_protocal: web_protocal }) %>
+    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor, root_url: root_url }) %>
   <% else %>
-    <%= react_component("Stages", { project_id: @project.id, web_protocal: web_protocal }) %>
+    <%= react_component("Stages", { project_id: @project.id, root_url: root_url }) %>
   <% end %>
 
 </div>

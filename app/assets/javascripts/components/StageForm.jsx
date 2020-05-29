@@ -1,7 +1,7 @@
 class StageForm extends React.Component {
 
   submitStage(formData) {
-    axios.post(this.props.setRoot() + '/projects/' + this.props.project_id + '/stages', formData)
+    axios.post(this.props.root_url + '/projects/' + this.props.project_id + '/stages', formData)
     .catch((err) => console.log(err.response.data));
   }
 
