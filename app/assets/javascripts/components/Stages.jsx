@@ -14,7 +14,6 @@ class Stages extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.root_url);
     this.getTickets();
     this.getStages();
     this.handleWebsocketUpdates(this);
