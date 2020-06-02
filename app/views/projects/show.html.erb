@@ -64,18 +64,10 @@
     <% is_contributor = true %>
   <% end %>
 
-  <% root_url = '' %>
-  <% slashes = 0 %>
-  <%= "#{polymorphic_url(@project)}".split(//).each do |char| %>
-    <% slashes = slashes + 1 if char == "/" %>
-    <% break if slashes == 3 %>
-    <% root_url = root_url + char %>
-  <% end %>
-
   <% if current_user %>
-    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor, root_url: root_url }) %>
+    <%= react_component("Stages", { project_id: @project.id, current_user: true, is_contributor: is_contributor, root_with_project_instance: polymorphic_url(@project) }) %>
   <% else %>
-    <%= react_component("Stages", { project_id: @project.id, root_url: root_url }) %>
+    <%= react_component("Stages", { project_id: @project.id, root_with_project_instance: polymorphic_url(@project) }) %>
   <% end %>
 
 </div>

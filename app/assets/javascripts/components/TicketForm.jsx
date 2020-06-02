@@ -1,7 +1,7 @@
 class TicketForm extends React.Component {
 
   submitTicket(formData) {
-    axios.post(this.props.root_url + '/projects/' + this.props.project_id + '/stages/' + this.props.firstStageId + '/tickets', formData)
+    axios.post(this.props.root_with_project_instance + '/stages/' + this.props.firstStageId + '/tickets', formData)
     .catch((err) => console.log(err.response.data));
   }
 

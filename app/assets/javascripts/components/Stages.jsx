@@ -35,13 +35,13 @@ class Stages extends React.Component {
   }
 
   getTickets() {
-    axios.get(this.props.root_url + '/projects/' + this.props.project_id + '/tickets')
+    axios.get(this.props.root_with_project_instance + '/tickets')
     .then((res) => this.setState({ tickets: res.data }))
     .catch((err) => console.log(err.response.data));
   }
 
   getStages() {
-    axios.get(this.props.root_url + '/projects/' + this.props.project_id + '/stages')
+    axios.get(this.props.root_with_project_instance + '/stages')
     .then((res) => this.handleIncomingStages(res.data))
     .catch((err) => console.log(err.response.data));
   }
@@ -68,7 +68,7 @@ class Stages extends React.Component {
 
   moveTicket(stageId) {
     if(stageId && this.state.selectedTicket) {
-      axios.patch(this.props.root_url + '/projects/' + this.props.project_id + '/tickets/' + this.state.selectedTicket.id, {
+      axios.patch(this.props.root_with_project_instance + '/tickets/' + this.state.selectedTicket.id, {
         stage_id: stageId
       })
       .then(() => this.unselectTicket())
@@ -86,7 +86,7 @@ class Stages extends React.Component {
             tickets={tickets}
             selectTicket={this.selectTicket}
             selectedTicket={ticket}
-            root_url={this.props.root_url}
+            root_with_project_instance={this.props.root_with_project_instance}
             project_id={this.props.project_id}
             unselectTicket={this.unselectTicket}
             is_contributor={this.props.is_contributor}
@@ -99,7 +99,7 @@ class Stages extends React.Component {
   renderStageForm() {
     return <StageForm
       current_user={this.props.current_user}
-      root_url={this.props.root_url}
+      root_with_project_instance={this.props.root_with_project_instance}
       project_id={this.props.project_id}
       getStages={this.getStages}
       is_contributor={this.props.is_contributor}
@@ -109,7 +109,7 @@ class Stages extends React.Component {
   renderTicketForm(firstStageId) {
     return <TicketForm
       current_user={this.props.current_user}
-      root_url={this.props.root_url}
+      root_with_project_instance={this.props.root_with_project_instance}
       project_id={this.props.project_id}
       firstStageId={firstStageId}
       getTickets={this.getTickets}
