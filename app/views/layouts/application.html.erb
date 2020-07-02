@@ -14,30 +14,6 @@
 
     <div id="flex-content-container">
       <nav class="navbar fixed-top navbar-toggleable-md header-color">
-        <div id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-          <span> 
-            <span class="nav-item">
-              <div class="homepage_link">
-                <%= link_to 'Todo Tracker Homepage', root_path %>
-              </div>
-              <div>
-                <% if !current_user %>
-                  <%= link_to 'Sign up', new_user_registration_path %>
-                  <br/>
-                  <%= link_to 'Log in', new_user_session_path %>
-                <% end %>
-                <% if current_user %>
-                  <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-                  <div class="make-it-green">
-                    <%= "Logged in as #{current_user.username}" %>
-                  </div>
-                <% end %>
-              </div>
-              </span>
-            </span>
-          </ul>
-        </div>
         <span class="links">
           <div class="text-center">
             <span class="link">
@@ -49,13 +25,18 @@
             <span class="link">
               <a class="fa fa-file-text fa-3x make-it-green" href="https://docs.google.com/document/d/1qm4nBdIZfsx8zh4IwYvkVuQYclpOXUCVxnC9vV3_eBM/edit"></a>
             </span>
+            <div class="homepage_link">
+              <%= link_to 'Todo Tracker Homepage', root_path %>
+            </div>
           </div>
         </span>
       </nav>
-      <br/><br/>
+      <br/><br/><br/><br/><br/>
 
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <h4 class="make-it-green page-content">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </h4>
 
       <%= yield %>
     </div>
