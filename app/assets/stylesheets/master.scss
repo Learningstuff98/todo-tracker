@@ -44,41 +44,24 @@
   }
 }
 
-html {
-  height: 100%;
-}
-  
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: rgba(85, 82, 83, 0.9);
-}
-
-#flex-content-container {
-  flex: 1;
-}
-
-#footer {
-  position: relative;
-  width: 100%;
-  min-height: 70px;
-  background-color: rgba(24, 21, 22, 0.9);
-  padding: 10px 0px;
-  margin-top: 30px;
 }
 
 .header-color {
   background-color: rgba(24, 21, 22, 0.9);
 }
 
-.homepage_link a {
-  font-size: 24px;
+.make-it-green {
   color: #00C122;
 }
 
-.make-it-green {
-  color: #00C122;
+.link {
+  font-size: 18px;
+}
+
+.link:hover {
+  color: rgb(14, 73, 168);
 }
 
 .page-content {
@@ -159,24 +142,4 @@ body {
 
 .new-contributor-form {
   margin-left: -20px;
-}
-
-.links {
-  width: 500px;
-  position: fixed;
-  top: 5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.link {
-  margin: 15px;
-}
-
-.navbar {
-  min-height: 140px;
-}
-
-.navbar-info {
-  margin-top: 20px;
 }
